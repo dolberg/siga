@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :current_user, :only => [:index, :new]
+  skip_before_filter :current_user, :only => [:index, :registrar]
   # GET /usuarios
   # GET /usuarios.json
   def index
