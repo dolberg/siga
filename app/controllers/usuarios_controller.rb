@@ -1,13 +1,13 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-
+  skip_before_filter :current_user, :only => [:index, :new]
   # GET /usuarios
   # GET /usuarios.json
   def index
       $error_login = false;
       #Verifica si se ha enviado el formulario.
     if request.post?
-        #$us= Usuario.select("id").where(:user => params[:nombre_usuario]).first
+       
         @user = Usuario.find_by_user(params[:nombre_usuario])
          #Verifica si el nombre de usuario y la contraseña son correctos.
         if login(params[:nombre_usuario], params[:contrasena])
@@ -91,8 +91,8 @@ class UsuariosController < ApplicationController
     def logout
       #Desloguea al usuario.
       session[:logueado] = false;
-      session[:user] =  nil;
-      $us = 0;
+      session[:user_id] =  nil;
+      
     end
     def get_login
         #Verifica si el usuario está logueado. Primero pregunta si existe la session[:logueado] y además que este sea true, si existe devuelve la sesión sino existe devuelve false.
