@@ -1,0 +1,32 @@
+<p> <%= link_to "Cerrar sesión", :controller => "usuarios", :action => "cerrar_sesion" %> </p>
+<h1>Listado de insumos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Producto</th>
+      <th>Saldo inicial</th>
+      <th>Precio inicial</th>
+      <th>Precio final</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @insumos.each do |insumo| %>
+      <tr>
+        <td><%= insumo.producto %></td>
+        <td><%= insumo.salin %></td>
+        <td><%= insumo.precin %></td>
+        <td><%= insumo.precfin %></td>
+        <td><%= link_to 'Show', insumo %></td>
+        <td><%= link_to 'Edit', edit_insumo_path(insumo) %></td>
+        <td><%= link_to 'Destroy', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Insumo', new_insumo_path %>

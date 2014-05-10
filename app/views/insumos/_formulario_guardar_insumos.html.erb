@@ -1,0 +1,25 @@
+<%= form_for @insumo do |f| %> 
+   <p> 
+      <%= f.label :producto, "Producto" %>
+      <br />
+      <%= f.text_field :producto, {:value => @producto} %>
+   </p>
+   <p> 
+      <%= f.label :salin, "Saldo Inicial" %>
+      <br />
+      <%= f.text_area :salin, {:value => @salin} %>
+   </p>
+   <p>
+      <%= f.label :precin, "Precio Inicial" %>
+      <br />
+      <%= f.text_field :precin, {:value => @precin} %>
+   </p>
+   <p>
+      <%= f.label :precfin, "Precio Final" %>
+      <br />
+      <%= f.text_field :precfin, {:value => @precfin} %>
+   </p>
+   <p>
+      <%= f.submit "Enviar" %> <%= link_to "Cancelar", insumos_path %>
+   </p>
+<% end %>

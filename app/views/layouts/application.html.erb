@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SIGA</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	
+<div align= "center">
+<h1>S.I.G.A.</h1>
+<h2>Sistema Integral de Gestión Agropecuaria</h2>
+
+
+<!-- mostramos si hay algún mensaje de otra pag -->
+<% flash.each do |key, value| %>
+   <p> <%= value %> </p>
+<% end %>
+
+
+<%= yield %>
+
+</body>
+</html>

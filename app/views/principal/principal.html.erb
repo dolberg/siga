@@ -1,0 +1,8 @@
+<p> <%= link_to "Cerrar sesión", :controller => "usuarios", :action => "cerrar_sesion" %> </p>
+
+<h2> Bienvenido/a </h2> 
+
+	<h2><%= @current_user.nombre %></h2>
+	<p>
+
+      	<%= link_to "Listado de Insumos", :controller => "insumos", :action => "index" %></p>

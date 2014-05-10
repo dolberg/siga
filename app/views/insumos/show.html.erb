@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>Producto:</strong>
+  <%= @insumo.producto %>
+</p>
+
+<p>
+  <strong>Saldo Inicial:</strong>
+  <%= @insumo.salin %>
+</p>
+
+<p>
+  <strong>Precio Inicial:</strong>
+  <%= @insumo.precin %>
+</p>
+
+<p>
+  <strong>Precio final:</strong>
+  <%= @insumo.precfin %>
+</p>
+
+<%= link_to 'Editar', edit_insumo_path(@insumo) %> |
+<%= link_to 'Volver', insumos_path %>
