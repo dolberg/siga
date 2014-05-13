@@ -1,0 +1,30 @@
+<%= form_for @campo do |f| %> 
+   <p> 
+      <%= f.label :nombre, "Establecimiento" %>
+      <br />
+      <%= f.text_field :nombre, {:value => @nombre} %>
+   </p>
+   <p> 
+      <%= f.label :superficie, "Superficie" %>
+      <br />
+      <%= f.text_field :superficie, {:value => @superficie} %>
+   </p>
+   <p>
+      <%= f.label :provincia, "Provincia" %>
+      <br />
+      <%= f.text_field :provincia, {:value => @provincia} %>
+   </p>
+   <p> 
+      <%= f.label :partido, "Partido" %>
+      <br />
+      <%= f.text_field :partido, {:value => @partido} %>
+   </p>
+   <p>
+      <%= f.label :localidad, "Localidad" %>
+      <br />
+      <%= f.text_field :localidad, {:value => @localidad} %>
+   </p>
+   <p>
+      <%= f.submit "Enviar" %> <%= link_to "Cancelar", campos_path %>
+   </p>
+<% end %>

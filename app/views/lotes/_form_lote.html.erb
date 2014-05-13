@@ -1,0 +1,21 @@
+<%= form_for([@campo, @lote]) do |lote| %>
+   <% if @lote.errors.any? %>
+      <ul>
+         <% @lote.errors.each do |lote| %>
+         <li> <%= lote %> </li>
+         <% end %>
+      </ul>
+   <% end %>
+      <p> 
+      <%= lote.label :lote, "Lote" %>
+      <br />
+      <%= lote.text_field :lote, {:value => @lote} %>
+   </p>
+   <p> 
+      <%= lote.label :superficie, "Superficie" %>
+      <br />
+      <%= lote.text_field :superficie, {:value => @superficie} %>
+   </p>
+   <br />
+   <%= lote.submit "Enviar" %> <%= link_to "Volver", @campo %>
+<% end %>

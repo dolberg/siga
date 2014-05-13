@@ -1,0 +1,26 @@
+<h2> <%= @campo.nombre %> </h2>
+<div>
+   <%= @campo.superficie %>
+</div>
+<div>
+   <%= simple_format @campo.provincia %>
+</div>
+<div>
+   <%= simple_format @campo.partido %>
+</div>
+<div>
+   <%= simple_format @campo.localidad %>
+</div>
+<p> <%= link_to "Agregar un Lote", new_campo_lote_path(@campo) %> | <%= link_to "Volver", campos_path %> </p>
+<hr />
+<ul style="list-style: none; padding: 0px;">
+   <% @lotes.each do |lote| %>
+      <strong>Lote:</strong>
+      <%= lote.lote %>    
+      <strong>Superficie:</strong>
+      <%= lote.superficie %> ha
+      <%= link_to "Editar", edit_campo_lote_path(@campo, lote) %>
+      <%= link_to "Eliminar", campo_lote_path(@campo, lote), :confirm => "Seguro desea eliminar este lote?", :method => :delete %> 
+         <hr />
+ <% end %>
+</ul>

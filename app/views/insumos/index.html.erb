@@ -1,3 +1,4 @@
+
 <p> <%= link_to "Cerrar sesión", :controller => "usuarios", :action => "cerrar_sesion" %> </p>
 <h1>Listado de insumos</h1>
 
@@ -19,14 +20,16 @@
         <td><%= insumo.salin %></td>
         <td><%= insumo.precin %></td>
         <td><%= insumo.precfin %></td>
-        <td><%= link_to 'Show', insumo %></td>
-        <td><%= link_to 'Edit', edit_insumo_path(insumo) %></td>
-        <td><%= link_to 'Destroy', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></td>
+        <td><%= link_to 'Ver', insumo %></td>
+        <td><%= link_to 'Editar', edit_insumo_path(insumo) %></td>
+        <td><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-
-<%= link_to 'New Insumo', new_insumo_path %>
+<p >
+<%= link_to 'Nuevo Producto', new_insumo_path %>
+</p>
+<%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>

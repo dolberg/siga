@@ -1,0 +1,19 @@
+<h2> Lista de Establecimientos </h2>
+<p> <%= link_to "Agregar Establecimiento", new_campo_path %> </p>
+<ul>
+   <% @campos.each do |campo| %>
+   <li>
+      <h3> <%= campo.nombre %> </h3>
+      <p>
+         <%= link_to "Ver", campo %>
+         |
+         <%= link_to "Editar", edit_campo_path(campo) %>
+         |
+         <%= link_to "Eliminar", campo, :confirm => "Seguro desea eliminar esta tarea?", :method => :delete %>
+      </p>
+   </li>
+   <% end %>
+</ul>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>

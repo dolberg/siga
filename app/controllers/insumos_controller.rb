@@ -19,7 +19,7 @@ class InsumosController < ApplicationController
 
   # GET /insumos/1/edit
   def edit
-   @insumo = Insumo.find(params[:id]);
+   @insumo = Insumo.find(params[:id]); 
    @producto = @insumo.producto;
    @salin = @insumo.salin;
    @precin = @insumo.precin;
@@ -30,21 +30,10 @@ class InsumosController < ApplicationController
   # POST /insumos.json
   def create
    #Recuperamos las varibles POST que vinieron desde la acción new.
-   #@us = Usuario..where(:id => $us);
+  
    @insumo = Insumo.new(insumo_params)
    @insumo.usuario_id = @current_user.id
-   #@producto = params[:insumo][:producto];
-   #@salin = params[:insumo][:salin];
-   #@precin = params[:insumo][:precin];
-   #@precfin = params[:insumo][:precfin];
-   #Creamos el objeto con los valores a ingresar.
-   #@insumo = Insumo.new({
-    #  :usuario_id => @current_user.id,
-     # :producto => @producto,
-      #:salin => @salin,
-      #:precin => @precin,
-      #:precfin => @precfin
-   #});
+  
    #Verificamos si la tarea ha podido ser guardado correctamente.
    
    if @insumo.save()

@@ -11,7 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140509135121) do
+ActiveRecord::Schema.define(version: 20140513132950) do
+
+  create_table "campos", force: true do |t|
+    t.integer  "usuario_id"
+    t.string   "nombre"
+    t.decimal  "superficie", precision: 10, scale: 0
+    t.string   "provincia"
+    t.string   "partido"
+    t.string   "localidad"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "campos", ["usuario_id"], name: "index_campos_on_usuario_id", using: :btree
 
   create_table "insumos", force: true do |t|
     t.integer  "usuario_id"
@@ -24,6 +37,16 @@ ActiveRecord::Schema.define(version: 20140509135121) do
   end
 
   add_index "insumos", ["usuario_id"], name: "index_insumos_on_usuario_id", using: :btree
+
+  create_table "lotes", force: true do |t|
+    t.integer  "campo_id"
+    t.string   "lote"
+    t.decimal  "superficie", precision: 10, scale: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "lotes", ["campo_id"], name: "index_lotes_on_campo_id", using: :btree
 
   create_table "usuarios", force: true do |t|
     t.string   "nombre"

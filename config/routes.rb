@@ -1,4 +1,21 @@
 Rails.application.routes.draw do
+ 
+
+  get 'lotes/new'
+
+  get 'lotes/create'
+
+  get 'lotes/edit'
+
+  get 'lotes/update'
+
+  get 'lotes/destroy'
+
+  resources :campos do
+
+    resources :lotes
+   end
+
   resources :insumos
 
   get "usuarios/index"
@@ -11,7 +28,7 @@ Rails.application.routes.draw do
   post "principal/principal"
   get "usuarios/cerrar_sesion"
   post "usuarios/cerrar_sesion"
-
+  
   resources :usuarios
 
   # The priority is based upon order of creation: first created -> highest priority.
