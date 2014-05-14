@@ -1,0 +1,50 @@
+<%= form_for(@compra_insumo) do |f| %>
+  <% if @compra_insumo.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@compra_insumo.errors.count, "error") %> prohibited this compra_insumo from being saved:</h2>
+
+      <ul>
+      <% @compra_insumo.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :fecha %><br>
+    <%= f.text_field :fecha %>
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :comprobante %><br>
+    <%= f.text_field :comprobante %>
+  </div>
+  <div class="select", align = "center">
+    <%= f.label :insumo_id %>
+    <%= f.collection_select :insumo_id, Insumo.all.where(:usuario_id => @current_user.id), :id, :producto %>
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :marca %><br>
+    <%= f.text_field :marca %>
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :proveedor %><br>
+    <%= f.text_field :proveedor %>
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :cant_fac %><br>
+    <%= f.text_field :cant_fac %>
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :cant_rem %><br>
+    <%= f.text_field :cant_rem %>
+  </div>
+  <div class="field", align = "center">
+    <%= f.label :monto %><br>
+    <%= f.text_field :monto %>
+  </div>
+  <div class="actions", align = "center">
+    <%= f.submit %>
+  </div>
+<% end %>

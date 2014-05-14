@@ -19,7 +19,7 @@ class CamposController < ApplicationController
 
   def show
     @campo = Campo.find(params[:id]);
-    @lotes = Lote.where(:campo_id => params[:id]);
+    @lotes = Lote.where(:campo_id => params[:id]).order("lotes.lote DESC");
   end
 
   def edit

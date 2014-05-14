@@ -1,5 +1,7 @@
 class Usuario < ActiveRecord::Base
 	has_many :insumo
+	has_many :campo
+	has_many :compra_insumo
 	#Validaciones de nombre
 	validates :nombre, :presence => {:message => "Usted debe ingresar su nombre"}
 	#Validaciones de apellido

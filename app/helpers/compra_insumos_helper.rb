@@ -1,0 +1,2 @@
+module CompraInsumosHelper
+end

@@ -1,0 +1,43 @@
+<h1>Facturas y Remitos de Insumos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Comprobante</th>
+      <th>Insumo</th>
+      <th>Marca</th>
+      <th>Proveedor</th>
+      <th>Cant fac</th>
+      <th>Cant rem</th>
+      <th>Monto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @compra_insumos.each do |compra_insumo| %>
+      <tr>
+        <td><%= compra_insumo.fecha %></td>
+        <td><%= compra_insumo.comprobante %></td>
+        <td><%= @insumos.where(:id => compra_insumo.insumo_id) %></td>
+        <td><%= compra_insumo.marca %></td>
+        <td><%= compra_insumo.proveedor %></td>
+        <td><%= compra_insumo.cant_fac %></td>
+        <td><%= compra_insumo.cant_rem %></td>
+        <td><%= compra_insumo.monto %></td>
+        <td><%= link_to 'Ver', compra_insumo %></td>
+        <td><%= link_to 'Modificar', edit_compra_insumo_path(compra_insumo) %></td>
+        <td><%= link_to 'Borrar', compra_insumo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<p>
+<%= link_to 'Nuevo Comprobante', new_compra_insumo_path %>
+</p>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>

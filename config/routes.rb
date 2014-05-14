@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
  
 
+  resources :compra_insumos
+
   get 'lotes/new'
 
   get 'lotes/create'

@@ -1,19 +1,27 @@
 <h2> Lista de Establecimientos </h2>
 <p> <%= link_to "Agregar Establecimiento", new_campo_path %> </p>
-<ul>
-   <% @campos.each do |campo| %>
-   <li>
-      <h3> <%= campo.nombre %> </h3>
-      <p>
-         <%= link_to "Ver", campo %>
-         |
-         <%= link_to "Editar", edit_campo_path(campo) %>
-         |
-         <%= link_to "Eliminar", campo, :confirm => "Seguro desea eliminar esta tarea?", :method => :delete %>
-      </p>
-   </li>
-   <% end %>
-</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nombre del Establecimiento</th>
+
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @campos.each do |campo| %>
+      <tr>
+        <td><%= campo.nombre %></td>
+        <td><%= link_to "Ver", campo %></td>
+        <td><%= link_to "Editar", edit_campo_path(campo) %></td>
+        <td><%= link_to "Eliminar", campo, :confirm => "Seguro desea eliminar esta tarea?", :method => :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
 <p>
    <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
 </p>

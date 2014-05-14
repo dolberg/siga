@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140513132950) do
+ActiveRecord::Schema.define(version: 20140514185822) do
 
   create_table "campos", force: true do |t|
     t.integer  "usuario_id"
@@ -25,6 +25,23 @@ ActiveRecord::Schema.define(version: 20140513132950) do
   end
 
   add_index "campos", ["usuario_id"], name: "index_campos_on_usuario_id", using: :btree
+
+  create_table "compra_insumos", force: true do |t|
+    t.integer  "usuario_id"
+    t.string   "fecha"
+    t.string   "comprobante"
+    t.integer  "insumo_id"
+    t.string   "marca"
+    t.string   "proveedor"
+    t.decimal  "cant_fac",    precision: 10, scale: 0
+    t.decimal  "cant_rem",    precision: 10, scale: 0
+    t.decimal  "monto",       precision: 10, scale: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "compra_insumos", ["insumo_id"], name: "index_compra_insumos_on_insumo_id", using: :btree
+  add_index "compra_insumos", ["usuario_id"], name: "index_compra_insumos_on_usuario_id", using: :btree
 
   create_table "insumos", force: true do |t|
     t.integer  "usuario_id"
