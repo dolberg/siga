@@ -3,23 +3,37 @@
 <h1>Listado de insumos</h1>
 
 <table>
-  <thead>
+  <thead align = "center">
     <tr>
       <th>Producto</th>
       <th>Saldo inicial</th>
       <th>Precio inicial</th>
+      <th>Monto inicial</th>
+      <th>Facturado</th>
+      <th>Remitido</th>
+      <th>Saldo en Proveedores</th>
+      <th>Utilizado</th>
+      <th>Saldo final</th>
       <th>Precio final</th>
+      <th>Monto Final</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody align = "center">
     <% @insumos.each do |insumo| %>
       <tr>
         <td><%= insumo.producto %></td>
         <td><%= insumo.salin %></td>
         <td><%= insumo.precin %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
         <td><%= insumo.precfin %></td>
+        <td></td>
         <td><%= link_to 'Ver', insumo %></td>
         <td><%= link_to 'Editar', edit_insumo_path(insumo) %></td>
         <td><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></td>

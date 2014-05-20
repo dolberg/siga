@@ -1,4 +1,5 @@
 class LotesController < ApplicationController
+  
   def new
     @campo = Campo.find(params[:campo_id]);
     @lote = Lote.new();
@@ -7,18 +8,19 @@ class LotesController < ApplicationController
   def create
     @lote = params[:lote][:lote];
     @superficie = params[:lote][:superficie]
-   @campo = Campo.find(params[:campo_id]);
-   @lote = Lote.new({
+    @campo = Campo.find(params[:campo_id]);
+    @lote = Lote.new({
       :lote => @lote,
       :campo => @campo,
       :superficie => @superficie
-   });
+    });
    if @lote.save()
       redirect_to @campo, :notice => "El lote ha sido agregado";
    else
       render "new";
    end
   end
+  
   def edit
     @campo = Campo.find(params[:campo_id])
     @lote = Lote.find(params[:id])

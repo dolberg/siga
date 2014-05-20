@@ -1,0 +1,32 @@
+<%= form_for(@facy_rem) do |f| %>
+  <% if @facy_rem.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@facy_rem.errors.count, "error") %> prohibited this facy_rem from being saved:</h2>
+
+      <ul>
+      <% @facy_rem.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.text_field :fecha %>
+  </div>
+
+  <div class="field">
+    <%= f.label :comprobante %><br>
+    <%= f.text_field :comprobante %>
+  </div>
+
+  <div class="field">
+    <%= f.label :proveedor %><br>
+    <%= f.text_field :proveedor %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

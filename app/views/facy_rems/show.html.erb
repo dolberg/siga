@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @facy_rem.fecha %>
+</p>
+
+<p>
+  <strong>Comprobante:</strong>
+  <%= @facy_rem.comprobante %>
+</p>
+
+<p>
+  <strong>Proveedor:</strong>
+  <%= @facy_rem.proveedor %>
+</p>
+<p>
+  <%= link_to 'Modificar', edit_facy_rem_path(@facy_rem) %> | <%= link_to "Agregar un Producto", new_facy_rem_compra_insumo_path(@facy_rem) %> | <%= link_to "Volver", facy_rems_path %> 
+</p>
+
+<table>
+  <thead align = "center">
+    <tr>
+      <th>Insumo</th>
+      <th>Marca</th>
+      <th>Cant fac</th>
+      <th>Cant rem</th>
+      <th>Monto</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody align= "center">
+    <% @compra_insumos.each do |compra_insumo| %>
+      <tr>
+        <td><%= compra_insumo.insumo.producto %></td>
+        <td><%= compra_insumo.marca %></td>
+        <td><%= compra_insumo.cant_fac %></td>
+        <td><%= compra_insumo.cant_rem %></td>
+        <td><%= compra_insumo.monto %></td>
+        <td><%= link_to 'Modificar', edit_facy_rem_compra_insumo_path(@facy_rem, compra_insumo) %></td>
+         <td><%= link_to "Eliminar", facy_rem_compra_insumo_path(@facy_rem, compra_insumo), :confirm => "Seguro desea eliminar este registro?", :method => :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+

@@ -1,0 +1,32 @@
+<h1>Lista de Facturas y Remitos</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Comprobante</th>
+      <th>Proveedor</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @facy_rems.each do |facy_rem| %>
+      <tr>
+        <td><%= facy_rem.fecha %></td>
+        <td><%= facy_rem.comprobante %></td>
+        <td><%= facy_rem.proveedor %></td>
+        <td><%= link_to 'Ver', facy_rem %></td>
+        <td><%= link_to 'Modificar', edit_facy_rem_path(facy_rem) %></td>
+        <td><%= link_to 'Borrar', facy_rem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Nueva Factura o Remito', new_facy_rem_path %>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>

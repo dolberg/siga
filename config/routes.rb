@@ -1,7 +1,22 @@
 Rails.application.routes.draw do
+
+  get 'compra_insumos/new'
+
+  get 'compra_insumos/create'
+
+  get 'compra_insumos/edit'
+
+  get 'compra_insumos/update'
+
+  get 'compra_insumos/destroy'
  
 
-  resources :compra_insumos
+  resources :facy_rems do 
+
+    resources :compra_insumos
+  end
+
+  resources :actividads
 
   get 'lotes/new'
 
