@@ -1,4 +1,6 @@
 class CamposController < ApplicationController
+
+  before_action :set_campo, only: [:show, :edit, :update, :destroy] 
   def index
     @campos = Campo.all.where(:usuario_id => @current_user.id)
   end
@@ -9,21 +11,19 @@ class CamposController < ApplicationController
 
   def create
     @campo = Campo.new(campo_params)
-   @campo.usuario_id = @current_user.id
-   if @campo.save()
-      redirect_to campos_path, :notice => "El registro ha sido creado";
-   else
-      render "new";
-   end
+    @campo.usuario_id = @current_user.id
+      if @campo.save()
+        redirect_to campos_path, :notice => "El registro ha sido creado";
+      else
+        render "new";
+    end
   end
 
   def show
-    @campo = Campo.find(params[:id]);
-    @lotes = Lote.where(:campo_id => params[:id]).order("lotes.lote DESC");
+    @lotes = Lote.where(:campo_id => params[:id]).order("lotes.lote ASC");
   end
 
   def edit
-    @campo = Campo.find(params[:id])
     @nombre = @campo.nombre
     @superficie = @campo.superficie
     @provincia = @campo.provincia
@@ -32,19 +32,12 @@ class CamposController < ApplicationController
   end
 
   def update
-    @nombre = params[:campo]["nombre"]
-    @superficie = params[:campo]["superficie"]
-    @provincia = params[:campo]["provincia"]
-    @partido = params[:campo]["partido"]
-    @localidad = params[:campo]["localidad"]
 
-    @campo = Campo.find(params[:id])
-
-    @campo.nombre = @nombre 
-    @campo.superficie = @superficie
-    @campo.provincia = @provincia
-    @campo.partido = @partido
-    @campo.localidad = @localidad
+    @campo.nombre = params[:campo]["nombre"]
+    @campo.superficie = params[:campo]["superficie"]
+    @campo.provincia = params[:campo]["provincia"]
+    @campo.partido = params[:campo]["partido"]
+    @campo.localidad = params[:campo]["localidad"]
     if @campo.save()
       redirect_to campos_path
     else
@@ -53,15 +46,29 @@ class CamposController < ApplicationController
   end
 
   def destroy
-       @campo = Campo.find(params[:id]);
-   if @campo.destroy()
-      redirect_to campos_path, :notice => "El registro ha sido eliminad";
-   else
-      redirect_to campos_path, :notice => "El registro NO ha podido ser eliminado";
-   end
+
+      if @campo.destroy()
+        redirect_to campos_path, :notice => "El registro ha sido eliminad";
+      else
+        redirect_to campos_path, :notice => "El registro NO ha podido ser eliminado";
+    end
   end
 
+#Para el select dinamico en labors
+  def lotes
+
+    @lotes = Lote.where(:campo_id => params[:campo_id])
+    respond_to do |format|
+        format.js {}
+      end
+      
+    end
+
   private
+
+    def set_campo
+      @campo = Campo.find(params[:id])
+    end
 
     def campo_params
       params.require(:campo).permit(:usuario_id, :nombre, :superficie, :provincia, :partido, :localidad)

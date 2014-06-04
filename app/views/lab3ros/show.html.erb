@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Fecha:</strong>
+  <%= @lab3ro.fecha %>
+</p>
+
+<p>
+  <strong>Campo:</strong>
+  <%= @lab3ro.campo.nombre %>
+</p>
+
+<p>
+  <strong>Lote:</strong>
+  <%= @lab3ro.lote.lote %>
+</p>
+
+<p>
+  <strong>Superficie:</strong>
+  <%= @lab3ro.superficie %>
+</p>
+
+<p>
+  <strong>Labor:</strong>
+  <%= @lab3ro.labor %>
+</p>
+
+<p>
+  <strong>Costo:</strong>
+  <%= @lab3ro.costo %>
+</p>
+
+<p>
+  <strong>Comentario:</strong>
+  <%= @lab3ro.comentario %>
+</p>
+
+<%= link_to 'Edit', edit_lab3ro_path(@lab3ro) %> | <%= link_to "Agregar un Producto", new_lab3ro_insumolab3ro_path(@lab3ro) %> |<%= link_to 'Back', lab3ros_path %>
+<table>
+  <thead align = "center">
+    <tr>
+      <th>Producto</th>
+      <th>Cantidad</th>
+      <th>Costo</th>
+      <th>Comentario</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody align= "center">
+    <% @insumolab3ros.each do |a| %>
+      <tr>
+        <td><%= a.insumo.producto %></td>
+        <td><%= a.cantidad %></td>
+        <td><%= a.cantidad * a.precio %></td>
+        <td><%= a.comentario %></td>
+        <td><%= link_to 'Modificar', edit_lab3ro_insumolab3ro_path(@lab3ro, a) %></td>
+         <td><%= link_to "Eliminar", lab3ro_insumolab3ro_path(@lab3ro, a), :confirm => "Seguro desea eliminar este registro?", :method => :delete %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

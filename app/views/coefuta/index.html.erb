@@ -1,0 +1,30 @@
+<h1>Coeficientes UTA por Labor</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Labor</th>
+      <th>Coeficiente</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @coefuta.each do |coefutum| %>
+      <tr>
+        <td><%= coefutum.labor %></td>
+        <td><%= coefutum.coef %></td>
+        <td><%= link_to 'Ver', coefutum %></td>
+        <td><%= link_to 'Modificar', edit_coefutum_path(coefutum) %></td>
+        <td><%= link_to 'Borrar', coefutum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Definir Nueva Labor', new_coefutum_path %>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>

@@ -1,0 +1,42 @@
+<%= form_for(@labor) do |f| %>
+  <% if @labor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@labor.errors.count, "error") %> prohibited this labor from being saved:</h2>
+
+      <ul>
+      <% @labor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.text_field :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :campo_id %><br>
+    <%= f.collection_select(:campo_id, Campo.all.where(:usuario_id => @current_user.id),:id, :nombre, {} ,{:id=>'Campo'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :lote_id %><br>
+    <%= f.collection_select(:lote_id, Lote.where(:campo_id => Campo.where(:usuario_id => @current_user.id).first), :id, :lote,{},{:id=>'Lote'}) %>
+  </div>
+  <div class="field">
+    <%= f.label :superficie %><br>
+    <%= f.text_field :superficie %>
+  </div>
+  <div class="field">
+    <%= f.label :coefutum_id, "Labor" %><br>
+    <%= f.collection_select :coefutum_id, Coefutum.all.where(:usuario_id => @current_user.id), :id, :labor %>
+  </div>
+  <div class="field">
+    <%= f.label :comentario %><br>
+    <%= f.text_area :comentario %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

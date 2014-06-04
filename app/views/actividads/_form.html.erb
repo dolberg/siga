@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :actividad %><br>
+    <%= f.label :actividad, "Actividad" %><br>
     <%= f.text_field :actividad %>
   </div>
   <div class="select">
-    <%= f.label :tipo %><br>
+    <%= f.label :tipo, "Tipo de Actividad" %><br>
     <%= f.select :tipo, options_for_select([["Agricultura"], ["Forrajes- Pasturas"], ["Forrajes- Silos"], ["Forrajes- Verdeos de Invierno"], ["Forrajes- Verdeos de Verano"]]) %>
   </div>
   <div class="radio_button">
@@ -26,6 +26,6 @@
     <%= label_tag(:sem_fin, "Sementera al Cierre") %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Aceptar" %>
   </div>
 <% end %>

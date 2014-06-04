@@ -19,7 +19,6 @@ class InsumosController < ApplicationController
 
   # GET /insumos/1/edit
   def edit
-   @insumo = Insumo.find(params[:id]); 
    @producto = @insumo.producto;
    @salin = @insumo.salin;
    @precin = @insumo.precin;
@@ -46,15 +45,10 @@ class InsumosController < ApplicationController
   # PATCH/PUT /insumos/1
   # PATCH/PUT /insumos/1.json
   def update
-   @producto = params[:insumo]["producto"];
-   @salin = params[:insumo]["salin"];
-   @precin = params[:insumo]["precin"];
-   @precfin = params[:insumo]["precfin"];
-   @insumo = Insumo.find(params[:id]);
-   @insumo.producto = @producto;
-   @insumo.salin = @salin;
-   @insumo.precin = @precin;
-   @insumo.precfin = @precfin;
+   @insumo.producto = params[:insumo]["producto"];
+   @insumo.salin = params[:insumo]["salin"];
+   @insumo.precin = params[:insumo]["precin"];
+   @insumo.precfin = params[:insumo]["precfin"];
    if @insumo.save()
       redirect_to insumos_path, :notice => "El registro ha sido modificado";
    else

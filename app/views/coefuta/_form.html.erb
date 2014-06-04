@@ -1,0 +1,25 @@
+<%= form_for(@coefutum) do |f| %>
+  <% if @coefutum.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@coefutum.errors.count, "error") %> prohibited this coefutum from being saved:</h2>
+
+      <ul>
+      <% @coefutum.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :labor, "Labor" %><br>
+    <%= f.text_field :labor %>
+  </div>
+  <div class="field">
+    <%= f.label :coef, "Coeficiente" %><br>
+    <%= f.text_field :coef %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Aceptar" %>
+  </div>
+<% end %>

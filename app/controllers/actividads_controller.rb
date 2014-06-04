@@ -19,6 +19,11 @@ class ActividadsController < ApplicationController
 
   # GET /actividads/1/edit
   def edit
+  
+    @activ = @actividad.actividad
+    @tipo = @actividad.tipo
+
+    
   end
 
   # POST /actividads
@@ -39,24 +44,27 @@ class ActividadsController < ApplicationController
   # PATCH/PUT /actividads/1
   # PATCH/PUT /actividads/1.json
   def update
-    respond_to do |format|
-      if @actividad.update(actividad_params)
-        format.html { redirect_to @actividad, notice: 'Actividad was successfully updated.' }
-        format.json { render :show, status: :ok, location: @actividad }
-      else
-        format.html { render :edit }
-        format.json { render json: @actividad.errors, status: :unprocessable_entity }
-      end
+
+    @actividad.actividad = params[:actividad]["actividad"]
+    @actividad.tipo = params[:actividad]["tipo"]
+    @actividad.sem_ini = params[:actividad]["sem_ini"]
+    @actividad.sem_fin = @sem_fin = params[:actividad]["sem_fin"]
+
+    if @actividad.save()
+      redirect_to actividads_path
+    else
+      render "edit"
     end
   end
 
   # DELETE /actividads/1
   # DELETE /actividads/1.json
   def destroy
-    @actividad.destroy
-    respond_to do |format|
-      format.html { redirect_to actividads_url, notice: 'Actividad was successfully destroyed.' }
-      format.json { head :no_content }
+      @actividad = Actividad.find(params[:id])
+      if @actividad.destroy()
+        redirect_to actividads_path, :notice => "El registro ha sido eliminado";
+      else
+        redirect_to actividads_path, :notice => "El registro NO ha podido ser eliminado";
     end
   end
 

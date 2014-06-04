@@ -1,0 +1,46 @@
+<h1>Listing labors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Fecha</th>
+      <th>Campo</th>
+      <th>Lote</th>
+      <th>Superficie</th>
+      <th>Labor</th>
+      <th>Coeficiente UTA</th>
+      <th>UTA's</th>
+      <th>Comentario</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @labors.each do |labor| %>
+      <tr>
+        <td><%= labor.fecha %></td>
+        <td><%= labor.campo.nombre %></td>
+        <td><%= labor.lote.lote %></td>
+        <td><%= labor.superficie %> ha</td>
+        <td><%= labor.coefutum.labor %></td>
+        <td><%= labor.coefutum.coef %></td>
+        <td><%= labor.coefutum.coef * labor.superficie %></td>
+        <td><%= labor.comentario %></td>
+        <td><%= link_to 'Show', labor %></td>
+        <td><%= link_to 'Edit', edit_labor_path(labor) %></td>
+        <td><%= link_to 'Destroy', labor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<p>
+<%= link_to 'New Labor', new_labor_path %>
+</p>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>
+<p>
+  <%= link_to "Labores", :controller => "labgrale", :action => "labgrales" %>
+</p>

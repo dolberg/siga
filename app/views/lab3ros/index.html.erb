@@ -1,0 +1,45 @@
+<h1>Listing lab3ros</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Usuario</th>
+      <th>Fecha</th>
+      <th>Campo</th>
+      <th>Lote</th>
+      <th>Superficie</th>
+      <th>Labor</th>
+      <th>Costo</th>
+      <th>Comentario</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @lab3ros.each do |lab3ro| %>
+      <tr>
+        <td><%= lab3ro.fecha %></td>
+        <td><%= lab3ro.campo.nombre %></td>
+        <td><%= lab3ro.lote.lote %></td>
+        <td><%= lab3ro.superficie %></td>
+        <td><%= lab3ro.labor %></td>
+        <td><%= lab3ro.costo %></td>
+        <td><%= lab3ro.comentario %></td>
+        <td><%= link_to 'Show', lab3ro %></td>
+        <td><%= link_to 'Edit', edit_lab3ro_path(lab3ro) %></td>
+        <td><%= link_to 'Destroy', lab3ro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<p>
+<%= link_to 'New Lab3ro', new_lab3ro_path %>
+</p>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>
+<p>
+  <%= link_to "Labores", :controller => "labgrale", :action => "labgrales" %>
+</p>

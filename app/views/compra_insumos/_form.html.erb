@@ -8,27 +8,27 @@
    <% end %>
  
   <div class="select", align = "center">
-    <%= f.label :insumo_id %>
+    <%= f.label :insumo_id, "Producto"%>
     <%= f.collection_select :insumo_id, Insumo.all.where(:usuario_id => @current_user.id), :id, :producto %>
   </div>
   <div class="field", align = "center">
-    <%= f.label :marca %><br>
+    <%= f.label :marca, "Marca" %><br>
     <%= f.text_field :marca %>
   </div>
 
   <div class="field", align = "center">
-    <%= f.label :cant_fac %><br>
+    <%= f.label :cant_fac, "Cantidad Facturada" %><br>
     <%= f.text_field :cant_fac %>
   </div>
   <div class="field", align = "center">
-    <%= f.label :cant_rem %><br>
+    <%= f.label :cant_rem, "Cantidad Remitida" %><br>
     <%= f.text_field :cant_rem %>
   </div>
   <div class="field", align = "center">
-    <%= f.label :monto %><br>
+    <%= f.label :monto, "Monto" %><br>
     <%= f.text_field :monto %>
   </div>
   <div class="actions", align = "center">
-    <%= f.submit %><%= link_to "Volver", @facy_rem %>
+    <%= f.submit "Aceptar" %><%= link_to "Volver", @facy_rem %>
   </div>
 <% end %>

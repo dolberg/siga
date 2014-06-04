@@ -1,0 +1,2 @@
+module LabgraleHelper
+end

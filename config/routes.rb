@@ -1,5 +1,24 @@
 Rails.application.routes.draw do
 
+  resources :lab3ros do
+
+    resources :insumolab3ros
+
+  end
+
+
+  get 'labgrale/labgrales'
+
+  resources :insumolabores
+
+  resources :labors do 
+
+    resources :insumolabores
+
+  end
+
+  resources :coefuta
+
   get 'compra_insumos/new'
 
   get 'compra_insumos/create'
@@ -14,6 +33,7 @@ Rails.application.routes.draw do
   resources :facy_rems do 
 
     resources :compra_insumos
+
   end
 
   resources :actividads
@@ -31,6 +51,13 @@ Rails.application.routes.draw do
   resources :campos do
 
     resources :lotes
+
+  end
+
+  resources :campos do
+
+    post 'lotes', on: :collection
+    
    end
 
   resources :insumos

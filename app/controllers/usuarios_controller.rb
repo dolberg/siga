@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :current_user, :only => [:index, :registrar]
+  skip_before_filter :current_user, :only => [:index, :registrar, :create]
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -35,17 +35,12 @@ class UsuariosController < ApplicationController
   # POST /usuarios
   # POST /usuarios.json
   def create
-    #Recuperamos las varibles POST que vinieron desde la acción login.
-      @nombre = params[:usuario][:nombre];
-      @apellido = params[:usuario][:apellido];
-      @user = params[:usuario][:user];
-      @pass = params[:usuario][:pass];
       #Creamos el objeto con los valores a ingresar.
       @usuario = Usuario.new({
-      :nombre => @nombre,
-      :apellido => @apellido,
-      :user=> @user,
-      :pass => @pass
+      :nombre => params[:usuario][:nombre],
+      :apellido => params[:usuario][:apellido],
+      :user=> params[:usuario][:user],
+      :pass => params[:usuario][:pass],
       });
       #Verificamos si el usuario ha sido creado.
       if @usuario.save()

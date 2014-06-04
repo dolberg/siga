@@ -1,0 +1,33 @@
+<%= form_for([@labor, @insumolabore]) do |f| %>
+  <% if @insumolabore.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@insumolabore.errors.count, "error") %> prohibited this insumolabore from being saved:</h2>
+
+      <ul>
+      <% @insumolabore.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :insumo_id, "Producto"%>
+    <%= f.collection_select :insumo_id, Insumo.all.where(:usuario_id => @current_user.id), :id, :producto %>
+  </div>
+  <div class="field">
+    <%= f.label :cantidad, "Cantidad" %><br>
+    <%= f.text_field :cantidad %>
+  </div>
+  <div class="field">
+    <%= f.label :precio, "Precio" %><br>
+    <%= f.text_field :precio %>
+  </div>
+  <div class="field">
+    <%= f.label :comentario, "Observaciones" %><br>
+    <%= f.text_area :comentario %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Aceptar" %><%= link_to "Volver", @labor %>
+  </div>
+<% end %>

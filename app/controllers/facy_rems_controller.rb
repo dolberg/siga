@@ -1,4 +1,5 @@
 class FacyRemsController < ApplicationController
+  before_action :set_facy_rem, only: [:show, :edit, :update, :destroy]
 
   def index
     @facy_rems = FacyRem.all.where(:usuario_id => @current_user.id)
@@ -7,7 +8,6 @@ class FacyRemsController < ApplicationController
   # GET /facy_rems/1
   # GET /facy_rems/1.json
   def show
-    @facy_rem = FacyRem.find(params[:id]);
     @compra_insumos = CompraInsumo.where(:facyrem_id => params[:id])
   end
 
@@ -18,7 +18,6 @@ class FacyRemsController < ApplicationController
 
   # GET /facy_rems/1/edit
   def edit
-    @facy_rem = FacyRem.find(params[:id])
     @fecha = @facy_rem.fecha
     @comprobante = @facy_rem.comprobante
     @proveedor = @facy_rem.proveedor
@@ -39,15 +38,9 @@ class FacyRemsController < ApplicationController
   # PATCH/PUT /facy_rems/1
   # PATCH/PUT /facy_rems/1.json
   def update
-    @fecha = params[:facy_rem]["fecha"]
-    @comprobante = params[:facy_rem]["comprobante"]
-    @proveedor = params[:facy_rem]["proveedor"]
-
-    @facy_rem = FacyRem.find(params[:id])
-
-    @facy_rem.fecha = @fecha
-    @facy_rem.comprobante = @comprobante 
-    @facy_rem.proveedor = @proveedor
+    @facy_rem.fecha = params[:facy_rem]["fecha"]
+    @facy_rem.comprobante = params[:facy_rem]["comprobante"] 
+    @facy_rem.proveedor = params[:facy_rem]["proveedor"]
     if @facy_rem.save()
       redirect_to facy_rems_path
     else
@@ -58,7 +51,6 @@ class FacyRemsController < ApplicationController
   # DELETE /facy_rems/1
   # DELETE /facy_rems/1.json
   def destroy
-    @facy_rem.destroy
     if @facy_rem.destroy()
       redirect_to facy_rems_path, :notice => "El registro ha sido eliminad";
    else
@@ -72,4 +64,9 @@ class FacyRemsController < ApplicationController
     def facy_rem_params
       params.require(:facy_rem).permit(:usuario_id, :fecha, :comprobante, :proveedor)
     end
+
+    def set_facy_rem
+       @facy_rem = FacyRem.find(params[:id])
+     end
+
 end

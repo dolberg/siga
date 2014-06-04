@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Labor:</strong>
+  <%= @coefutum.labor %>
+</p>
+
+<p>
+  <strong>Coeficiente:</strong>
+  <%= @coefutum.coef %>
+</p>
+
+<%= link_to 'Modificar', edit_coefutum_path(@coefutum) %> |
+<%= link_to 'Volver', coefuta_path %>

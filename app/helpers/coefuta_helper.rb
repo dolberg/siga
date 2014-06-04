@@ -1,0 +1,2 @@
+module CoefutaHelper
+end
