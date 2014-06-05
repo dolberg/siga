@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   get 'labgrale/labgrales'
 
-  resources :insumolabores
-
   resources :labors do 
 
     resources :insumolabores

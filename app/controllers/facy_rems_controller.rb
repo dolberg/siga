@@ -8,7 +8,7 @@ class FacyRemsController < ApplicationController
   # GET /facy_rems/1
   # GET /facy_rems/1.json
   def show
-    @compra_insumos = CompraInsumo.where(:facyrem_id => params[:id])
+    @compra_insumos = CompraInsumo.where(:facy_rem_id => params[:id])
   end
 
   # GET /facy_rems/new

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140604171149) do
+ActiveRecord::Schema.define(version: 20140605002806) do
 
   create_table "actividads", force: true do |t|
     t.integer  "usuario_id"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20140604171149) do
   create_table "campos", force: true do |t|
     t.integer  "usuario_id"
     t.string   "nombre"
-    t.decimal  "superficie", precision: 10, scale: 0
+    t.float    "superficie"
     t.string   "provincia"
     t.string   "partido"
     t.string   "localidad"
@@ -49,17 +49,17 @@ ActiveRecord::Schema.define(version: 20140604171149) do
   add_index "coefuta", ["usuario_id"], name: "index_coefuta_on_usuario_id", using: :btree
 
   create_table "compra_insumos", force: true do |t|
-    t.integer  "FacyRem_id"
+    t.integer  "facy_rem_id"
     t.integer  "insumo_id"
     t.string   "marca"
-    t.decimal  "cant_fac",   precision: 10, scale: 0
-    t.decimal  "cant_rem",   precision: 10, scale: 0
-    t.decimal  "monto",      precision: 10, scale: 0
+    t.float    "cant_fac"
+    t.float    "cant_rem"
+    t.float    "monto"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "compra_insumos", ["FacyRem_id"], name: "index_compra_insumos_on_FacyRem_id", using: :btree
+  add_index "compra_insumos", ["facy_rem_id"], name: "index_compra_insumos_on_facy_rem_id", using: :btree
   add_index "compra_insumos", ["insumo_id"], name: "index_compra_insumos_on_insumo_id", using: :btree
 
   create_table "facy_rems", force: true do |t|
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(version: 20140604171149) do
   create_table "insumolab3ros", force: true do |t|
     t.integer  "lab3ro_id"
     t.integer  "insumo_id"
-    t.decimal  "cantidad",   precision: 10, scale: 0
-    t.decimal  "precio",     precision: 10, scale: 0
+    t.float    "cantidad"
+    t.float    "precio"
     t.text     "comentario"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -89,11 +89,11 @@ ActiveRecord::Schema.define(version: 20140604171149) do
   create_table "insumolabores", force: true do |t|
     t.integer  "labor_id"
     t.integer  "insumo_id"
-    t.decimal  "cantidad",   precision: 10, scale: 0
+    t.float    "cantidad"
+    t.float    "precio"
     t.text     "comentario"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.decimal  "precio",     precision: 10, scale: 0
   end
 
   add_index "insumolabores", ["insumo_id"], name: "index_insumolabores_on_insumo_id", using: :btree
@@ -102,9 +102,9 @@ ActiveRecord::Schema.define(version: 20140604171149) do
   create_table "insumos", force: true do |t|
     t.integer  "usuario_id"
     t.string   "producto"
-    t.decimal  "salin",      precision: 10, scale: 0
-    t.decimal  "precin",     precision: 10, scale: 0
-    t.decimal  "precfin",    precision: 10, scale: 0
+    t.float    "salin"
+    t.float    "precin"
+    t.float    "precfin"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -116,14 +116,16 @@ ActiveRecord::Schema.define(version: 20140604171149) do
     t.string   "fecha"
     t.integer  "campo_id"
     t.integer  "lote_id"
-    t.decimal  "superficie", precision: 10, scale: 0
+    t.integer  "actividad_id"
+    t.float    "superficie"
     t.string   "labor"
-    t.decimal  "costo",      precision: 10, scale: 0
+    t.float    "costo"
     t.text     "comentario"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "lab3ros", ["actividad_id"], name: "index_lab3ros_on_actividad_id", using: :btree
   add_index "lab3ros", ["campo_id"], name: "index_lab3ros_on_campo_id", using: :btree
   add_index "lab3ros", ["lote_id"], name: "index_lab3ros_on_lote_id", using: :btree
   add_index "lab3ros", ["usuario_id"], name: "index_lab3ros_on_usuario_id", using: :btree
@@ -133,13 +135,15 @@ ActiveRecord::Schema.define(version: 20140604171149) do
     t.string   "fecha"
     t.integer  "campo_id"
     t.integer  "lote_id"
-    t.decimal  "superficie",  precision: 10, scale: 0
+    t.integer  "actividad_id"
+    t.float    "superficie"
     t.integer  "coefutum_id"
     t.text     "comentario"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "labors", ["actividad_id"], name: "index_labors_on_actividad_id", using: :btree
   add_index "labors", ["campo_id"], name: "index_labors_on_campo_id", using: :btree
   add_index "labors", ["coefutum_id"], name: "index_labors_on_coefutum_id", using: :btree
   add_index "labors", ["lote_id"], name: "index_labors_on_lote_id", using: :btree

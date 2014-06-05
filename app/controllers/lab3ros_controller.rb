@@ -71,6 +71,6 @@ class Lab3rosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lab3ro_params
-      params.require(:lab3ro).permit(:usuario_id, :fecha, :campo_id, :lote_id, :superficie, :labor, :costo, :comentario)
+      params.require(:lab3ro).permit(:usuario_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :labor, :costo, :comentario)
     end
 end

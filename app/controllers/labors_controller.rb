@@ -71,6 +71,6 @@ class LaborsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def labor_params
-      params.require(:labor).permit(:usuario_id, :fecha, :campo_id, :lote_id, :superficie, :coefutum_id, :comentario)
+      params.require(:labor).permit(:usuario_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :coefutum_id, :comentario)
     end
 end

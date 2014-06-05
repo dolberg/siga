@@ -12,7 +12,7 @@ class CompraInsumosController < ApplicationController
       :cant_fac => params[:compra_insumo][:cant_fac],
       :cant_rem => params[:compra_insumo][:cant_rem],
       :monto => params[:compra_insumo][:monto],
-      :FacyRem => @facy_rem
+      :facy_rem => @facy_rem
     });
    if @compra_insumo.save()
       redirect_to @facy_rem, :notice => "El registro ha sido agregado";

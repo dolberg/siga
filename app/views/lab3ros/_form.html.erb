@@ -27,6 +27,10 @@
     <%= f.text_field :superficie %>
   </div>
   <div class="field">
+    <%= f.label :actividad_id, "Labor" %><br>
+    <%= f.collection_select :actividad_id, Actividad.all.where(:usuario_id => @current_user.id), :id, :actividad %>
+  </div>
+  <div class="field">
     <%= f.label :labor %><br>
     <%= f.text_field :labor %>
   </div>

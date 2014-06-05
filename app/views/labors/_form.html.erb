@@ -25,6 +25,10 @@
     <%= f.collection_select(:lote_id, Lote.where(:campo_id => Campo.where(:usuario_id => @current_user.id).first), :id, :lote,{},{:id=>'Lote'}) %>
   </div>
   <div class="field">
+    <%= f.label :actividad_id, "Labor" %><br>
+    <%= f.collection_select :actividad_id, Actividad.all.where(:usuario_id => @current_user.id), :id, :actividad %>
+  </div>
+  <div class="field">
     <%= f.label :superficie %><br>
     <%= f.text_field :superficie %>
   </div>

@@ -3,13 +3,13 @@
 one:
   usuario_id: 
   producto: MyString
-  salin: 9.99
-  precin: 9.99
-  precfin: 9.99
+  salin: 1.5
+  precin: 1.5
+  precfin: 1.5
 
 two:
   usuario_id: 
   producto: MyString
-  salin: 9.99
-  precin: 9.99
-  precfin: 9.99
+  salin: 1.5
+  precin: 1.5
+  precfin: 1.5
