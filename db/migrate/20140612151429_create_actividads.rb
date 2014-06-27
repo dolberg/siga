@@ -4,8 +4,7 @@ class CreateActividads < ActiveRecord::Migration
       t.references :usuario, index: true
       t.string :actividad
       t.string :tipo
-      t.boolean :sem_ini
-      t.boolean :sem_fin
+      t.string :sementera
 
       t.timestamps
     end

@@ -26,14 +26,14 @@
         <td><%= insumo.producto %></td>
         <td><%= insumo.salin %></td>
         <td><%= insumo.precin %></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
+        <td><%= insumo.salin * insumo.precin %></td>
+        <td><%= facturado = CompraInsumo.where(:insumo_id => insumo.id).sum(:cant_fac) %></td>
+        <td><%= remitido = CompraInsumo.where(:insumo_id => insumo.id).sum(:cant_rem) %></td>
+        <td><%= saldoproveedoes = facturado - remitido %></td>
+        <td><%= usado = Insumolabore.where(:insumo_id => insumo.id).sum(:cantidad) + Insumolab3ro.where(:insumo_id => insumo.id).sum(:cantidad)%></td>
+        <td><%= saldofinal = facturado - usado + insumo.salin %></td>
         <td><%= insumo.precfin %></td>
-        <td></td>
+        <td><%= saldofinal * insumo.precfin %></td>
         <td><%= link_to 'Ver', insumo %></td>
         <td><%= link_to 'Editar', edit_insumo_path(insumo) %></td>
         <td><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></td>

@@ -13,14 +13,7 @@
     <% @actividads.each do |actividad| %>
       <tr>
         <td><%= actividad.actividad %></td>
-        <td><%= actividad.tipo %></td>
-        <td><%if (actividad.sem_ini == nil)&&(actividad.sem_fin == nil)%>
-          Ejercicio
-          <%elsif actividad.sem_ini == true%>
-          Sementera al inicio
-          <%else%>
-          Sementera al cierre
-          <%end%>
+        <td><%= actividad.tipo %> - <%= actividad.sementera %></td>
         <td><%= link_to 'Modificar', edit_actividad_path(actividad) %></td>
         <td><%= link_to 'Eliminar', actividad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>

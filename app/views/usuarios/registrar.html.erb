@@ -1,27 +1,41 @@
+
 <h3> Registrarse </h3>
 <%= form_for @usuario do |f| %> 
-   <p> 
-      <%= f.label :nombre, "Nombre" %>
-      <br />
-      <%= f.text_field :nombre, {:value => @nombre} %>
-   </p>
-   <p> 
-      <%= f.label :apellido, "Apellido" %>
-      <br />
-      <%= f.text_field :apellido, {:value => @apellido} %>
-   </p>
-   <p> 
-      <%= f.label :user, "Nombre de Ususario" %>
-      <br />
-      <%= f.text_field :user, {:value => @user} %>
-   </p>
 
-   <p>
-      <%= f.label :pass, "Contraseña" %>
-      <br />
-      <%= f.password_field :pass, {:value => @pass, :size => "20", :maxlength => 20} %>
-   </p>
-   <p>
-      <%= f.submit "Registrarse" %> <%= link_to "Cancelar", usuarios_path %>
-   </p>
+<div class="row">
+   <div class="large-3 columns">
+      <%= f.label :nombre, "Nombre" %><br>
+      <%= f.text_field :nombre, {:value => @nombre} %>
+   </div>
+</div>
+   
+<div class="row">
+   <div class="large-3 columns">
+      <%= f.label :apellido, "Apellido" %><br>
+      <%= f.text_field :apellido %>
+      </div>
+</div>
+   
+<div class="row">
+   <div class="large-3 columns"> 
+      <%= f.label :user, "Nombre de Ususario" %><br>
+      <%= f.text_field :user %>
+      </div>
+</div>
+   
+<div class="row">
+   <div class="large-3 columns">
+      <%= f.label :pass, "Contraseña" %><br>
+      <%= f.password_field :pass, {:size => "20", :maxlength => 20} %>
+   </div>
+</div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+      </ul>
+    </div>
+  </div>
 <% end %>
+

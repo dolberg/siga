@@ -5,6 +5,7 @@ class InsumosController < ApplicationController
   # GET /insumos.json
   def index
     @insumos = Insumo.all.where(:usuario_id => @current_user.id)
+    
   end
 
   # GET /insumos/1

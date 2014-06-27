@@ -1,0 +1,32 @@
+<h1>Listing loteactividads</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Campo</th>
+      <th>Lote</th>
+      <th>Actividad</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @loteactividads.each do |loteactividad| %>
+      <tr>
+        <td><%= loteactividad.campo.nombre %></td>
+        <td><%= loteactividad.lote.lote %></td>
+        <td><%= loteactividad.actividad.actividad %> - <%= loteactividad.actividad.tipo %> - <%= loteactividad.actividad.sementera %></td>
+        <td><%= link_to 'Show', loteactividad %></td>
+        <td><%= link_to 'Edit', edit_loteactividad_path(loteactividad) %></td>
+        <td><%= link_to 'Destroy', loteactividad, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Loteactividad', new_loteactividad_path %>
+<p>
+   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+</p>

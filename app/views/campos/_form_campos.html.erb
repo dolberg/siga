@@ -1,30 +1,43 @@
 <%= form_for @campo do |f| %> 
-   <p> 
-      <%= f.label :nombre, "Establecimiento" %>
-      <br />
-      <%= f.text_field :nombre, {:value => @nombre} %>
-   </p>
-   <p> 
-      <%= f.label :superficie, "Superficie" %>
-      <br />
-      <%= f.text_field :superficie, {:value => @superficie} %>
-   </p>
-   <p>
-      <%= f.label :provincia, "Provincia" %>
-      <br />
-      <%= f.text_field :provincia, {:value => @provincia} %>
-   </p>
-   <p> 
-      <%= f.label :partido, "Partido" %>
-      <br />
-      <%= f.text_field :partido, {:value => @partido} %>
-   </p>
-   <p>
-      <%= f.label :localidad, "Localidad" %>
-      <br />
-      <%= f.text_field :localidad, {:value => @localidad} %>
-   </p>
-   <p>
-      <%= f.submit "Enviar" %> <%= link_to "Cancelar", campos_path %>
-   </p>
+   <div class="row">
+      <div class="large-9 columns">
+         <%= f.label :nombre%>
+         <%= f.text_field :nombre%>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-4 columns">
+         <%= f.label :superficie%>
+         <%= f.text_field :superficie%>
+      </div>
+   </div>
+   
+   <div class="row">
+      <div class="large-3 columns">
+         <%= f.label :provincia%>
+         <%= f.text_field :provincia%>
+      </div>
+
+      <div class="large-3 columns">
+         <%= f.label :partido%>
+         <%= f.text_field :partido %>
+      </div>
+
+      <div class="large-3 columns">
+         <%= f.label :localidad%>
+         <%= f.text_field :localidad %>
+      </div>
+
+      <div class="large-3 columns">
+      </div>
+   </div>
+   <div class="row">
+       <div class="large-12 columns">
+         <ul class="button-group">
+            <li><button class="tiny" type="submit">Aceptar</button></li>
+            <li class="button tiny"><%= link_to 'Volver', campos_path %></li>
+         </ul>
+      </div>
+   </div>
 <% end %>

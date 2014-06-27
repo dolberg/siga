@@ -1,25 +1,39 @@
 <%= form_for @insumo do |f| %> 
-   <p> 
-      <%= f.label :producto, "Producto" %>
-      <br />
-      <%= f.text_field :producto, {:value => @producto} %>
-   </p>
-   <p> 
-      <%= f.label :salin, "Saldo Inicial" %>
-      <br />
-      <%= f.text_field :salin, {:value => @salin} %>
-   </p>
-   <p>
-      <%= f.label :precin, "Precio Inicial" %>
-      <br />
-      <%= f.text_field :precin, {:value => @precin} %>
-   </p>
-   <p>
-      <%= f.label :precfin, "Precio Final" %>
-      <br />
-      <%= f.text_field :precfin, {:value => @precfin} %>
-   </p>
-   <p>
-      <%= f.submit "Enviar" %> <%= link_to "Cancelar", insumos_path %>
-   </p>
+   <div class="row">
+      <div class="large-3 columns"> 
+         <%= f.label :producto, "Producto" %>
+         <%= f.text_field :producto, {:value => @producto} %>
+      </div>
+   </div>
+   
+   <div class="row">
+      <div class="large-3 columns">
+         <%= f.label :salin, "Saldo Inicial" %>
+         <%= f.text_field :salin, {:value => @salin} %>
+      </div>
+   </div>
+
+   <div class="row">
+      <div class="large-3 columns">      
+         <%= f.label :precin, "Precio Inicial" %>
+         <%= f.text_field :precin, {:value => @precin} %>
+      </div>
+   </div>
+   
+   <div class="row">
+      <div class="large-3 columns">
+         <%= f.label :precfin, "Precio Final" %>
+         <%= f.text_field :precfin, {:value => @precfin} %>
+      </div>
+   </div>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+        <li class="button tiny"><%= link_to 'Volver', insumos_path %></li>
+      </ul>
+    </div>
+  </div>
+   
 <% end %>

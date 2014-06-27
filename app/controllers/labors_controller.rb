@@ -16,6 +16,12 @@ class LaborsController < ApplicationController
   # GET /labors/new
   def new
     @labor = Labor.new
+    @campos = Campo.all.where(:usuario_id => @current_user.id)
+
+    respond_to do |format|
+      format.html # new.html.erb
+      format.xml  { render :xml => @labor }
+    end
   end
 
   # GET /labors/1/edit
@@ -63,6 +69,14 @@ class LaborsController < ApplicationController
     end
   end
 
+  def add_lotes
+    @campo = Campo.find(params[:campo_id], :joins => :lotes)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_labor
@@ -74,3 +88,4 @@ class LaborsController < ApplicationController
       params.require(:labor).permit(:usuario_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :coefutum_id, :comentario)
     end
 end
+

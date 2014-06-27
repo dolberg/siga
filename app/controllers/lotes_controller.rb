@@ -42,6 +42,15 @@ class LotesController < ApplicationController
    end
   end
 
+  def loteactividads
+
+    @loteactividads = Loteactividad.where(:lote_id => params[:lote_id])
+    respond_to do |format|
+        format.js {}
+    end
+      
+  end
+
   private
 
   def set_campo

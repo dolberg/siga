@@ -47,8 +47,8 @@ class ActividadsController < ApplicationController
 
     @actividad.actividad = params[:actividad]["actividad"]
     @actividad.tipo = params[:actividad]["tipo"]
-    @actividad.sem_ini = params[:actividad]["sem_ini"]
-    @actividad.sem_fin = @sem_fin = params[:actividad]["sem_fin"]
+    @actividad.sementera = params[:actividad]["sementera"]
+    
 
     if @actividad.save()
       redirect_to actividads_path
@@ -76,6 +76,6 @@ class ActividadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def actividad_params
-      params.require(:actividad).permit(:usuario_id, :actividad, :tipo, :sem_ini, :sem_fin)
+      params.require(:actividad).permit(:usuario_id, :actividad, :tipo, :sementera)
     end
 end

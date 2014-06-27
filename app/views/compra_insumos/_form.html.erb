@@ -7,28 +7,46 @@
       </ul>
    <% end %>
  
-  <div class="select", align = "center">
-    <%= f.label :insumo_id, "Producto"%>
-    <%= f.collection_select :insumo_id, Insumo.all.where(:usuario_id => @current_user.id), :id, :producto %>
-  </div>
-  <div class="field", align = "center">
-    <%= f.label :marca, "Marca" %><br>
-    <%= f.text_field :marca %>
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :insumo_id, "Producto"%>
+      <%= f.collection_select :insumo_id, Insumo.all.where(:usuario_id => @current_user.id), :id, :producto %>
+    </div>
   </div>
 
-  <div class="field", align = "center">
-    <%= f.label :cant_fac, "Cantidad Facturada" %><br>
-    <%= f.text_field :cant_fac %>
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :marca, "Marca" %>
+      <%= f.text_field :marca %>
+    </div>
   </div>
-  <div class="field", align = "center">
-    <%= f.label :cant_rem, "Cantidad Remitida" %><br>
-    <%= f.text_field :cant_rem %>
+
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :cant_fac, "Cantidad Facturada" %>
+      <%= f.text_field :cant_fac %>
+    </div>
   </div>
-  <div class="field", align = "center">
-    <%= f.label :monto, "Monto" %><br>
-    <%= f.text_field :monto %>
+
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :cant_rem, "Cantidad Remitida" %>
+      <%= f.text_field :cant_rem %>
+    </div>
   </div>
-  <div class="actions", align = "center">
-    <%= f.submit "Aceptar" %><%= link_to "Volver", @facy_rem %>
+
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :monto, "Monto" %>
+      <%= f.text_field :monto %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+        <li class="button tiny"><%= link_to 'Volver', @facy_rem %></li>
+      </ul>
+    </div>
   </div>
 <% end %>

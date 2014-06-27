@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140605002806) do
+ActiveRecord::Schema.define(version: 20140613110221) do
 
   create_table "actividads", force: true do |t|
     t.integer  "usuario_id"
     t.string   "actividad"
     t.string   "tipo"
-    t.boolean  "sem_ini"
-    t.boolean  "sem_fin"
+    t.string   "sementera"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,7 +63,7 @@ ActiveRecord::Schema.define(version: 20140605002806) do
 
   create_table "facy_rems", force: true do |t|
     t.integer  "usuario_id"
-    t.string   "fecha"
+    t.date     "fecha"
     t.string   "comprobante"
     t.string   "proveedor"
     t.datetime "created_at"
@@ -113,7 +112,7 @@ ActiveRecord::Schema.define(version: 20140605002806) do
 
   create_table "lab3ros", force: true do |t|
     t.integer  "usuario_id"
-    t.string   "fecha"
+    t.date     "fecha"
     t.integer  "campo_id"
     t.integer  "lote_id"
     t.integer  "actividad_id"
@@ -132,7 +131,7 @@ ActiveRecord::Schema.define(version: 20140605002806) do
 
   create_table "labors", force: true do |t|
     t.integer  "usuario_id"
-    t.string   "fecha"
+    t.date     "fecha"
     t.integer  "campo_id"
     t.integer  "lote_id"
     t.integer  "actividad_id"
@@ -148,6 +147,20 @@ ActiveRecord::Schema.define(version: 20140605002806) do
   add_index "labors", ["coefutum_id"], name: "index_labors_on_coefutum_id", using: :btree
   add_index "labors", ["lote_id"], name: "index_labors_on_lote_id", using: :btree
   add_index "labors", ["usuario_id"], name: "index_labors_on_usuario_id", using: :btree
+
+  create_table "loteactividads", force: true do |t|
+    t.integer  "usuario_id"
+    t.integer  "campo_id"
+    t.integer  "lote_id"
+    t.integer  "actividad_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "loteactividads", ["actividad_id"], name: "index_loteactividads_on_actividad_id", using: :btree
+  add_index "loteactividads", ["campo_id"], name: "index_loteactividads_on_campo_id", using: :btree
+  add_index "loteactividads", ["lote_id"], name: "index_loteactividads_on_lote_id", using: :btree
+  add_index "loteactividads", ["usuario_id"], name: "index_loteactividads_on_usuario_id", using: :btree
 
   create_table "lotes", force: true do |t|
     t.integer  "campo_id"

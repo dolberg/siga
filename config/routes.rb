@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :loteactividads
+
   resources :lab3ros do
 
     resources :insumolab3ros
@@ -26,7 +28,6 @@ Rails.application.routes.draw do
   get 'compra_insumos/update'
 
   get 'compra_insumos/destroy'
- 
 
   resources :facy_rems do 
 
@@ -56,7 +57,13 @@ Rails.application.routes.draw do
 
     post 'lotes', on: :collection
     
-   end
+  end
+
+  resources :lotes do
+
+    post 'loteactividads', on: :collection
+    
+  end
 
   resources :insumos
 
@@ -66,6 +73,8 @@ Rails.application.routes.draw do
   post "usuarios/registrar"
   get "usuarios/show"
   post "usuarios/show"
+  get "usuarios/exito"
+  post "usuarios/exito"
   get "principal/principal"
   post "principal/principal"
   get "usuarios/cerrar_sesion"

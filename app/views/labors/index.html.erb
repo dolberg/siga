@@ -19,7 +19,7 @@
   <tbody>
     <% @labors.each do |labor| %>
       <tr>
-        <td><%= labor.fecha %></td>
+        <td><%= labor.fecha.strftime("%d %B %Y") %></td>
         <td><%= labor.campo.nombre %></td>
         <td><%= labor.lote.lote %></td>
         <td><%= labor.actividad.actividad %></td>

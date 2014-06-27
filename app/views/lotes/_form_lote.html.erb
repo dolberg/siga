@@ -6,16 +6,26 @@
          <% end %>
       </ul>
    <% end %>
-      <p> 
+<div class="row">
+   <div class="large-1 columns">
       <%= lote.label :lote, "Lote" %>
-      <br />
-      <%= lote.text_field :lote, {:value => @lote} %>
-   </p>
-   <p> 
+      <%= lote.text_field :lote %>
+   </div>
+   <div class="large-2 columns">
       <%= lote.label :superficie, "Superficie" %>
-      <br />
-      <%= lote.text_field :superficie, {:value => @superficie} %>
-   </p>
-   <br />
-   <%= lote.submit "Enviar" %> <%= link_to "Volver", @campo %>
+      <%= lote.text_field :superficie %>
+   </div>
+   <div class="large-9 columns">
+   </div>
+</div>
+   
+   <div class="row">
+    <div class="large-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+        <li class="button tiny"><%= link_to 'Volver', @campo %></li>
+      </ul>
+    </div>
+  </div>
+  
 <% end %>

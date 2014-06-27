@@ -4,6 +4,7 @@ class UsuariosController < ApplicationController
   # GET /usuarios
   # GET /usuarios.json
   def index
+    @usuario = Usuario.new
       $error_login = false;
       #Verifica si se ha enviado el formulario.
     if request.post?
@@ -44,7 +45,7 @@ class UsuariosController < ApplicationController
       });
       #Verificamos si el usuario ha sido creado.
       if @usuario.save()
-        redirect_to usuarios_index_path, :notice => "El usuario ha sido creado";
+        redirect_to :controller => "usuarios", :action => "exito", :notice => "El usuario ha sido creado";
       else
         render "registrar";
       end
@@ -57,6 +58,9 @@ class UsuariosController < ApplicationController
    else
       redirect_to :controller => "usuarios", :action => "index";
    end
+ end
+
+ def exito
  end
 
   

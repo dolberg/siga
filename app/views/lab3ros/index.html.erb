@@ -19,14 +19,14 @@
   <tbody>
     <% @lab3ros.each do |lab3ro| %>
       <tr>
-        <td><%= lab3ro.fecha %></td>
+        <td><%= lab3ro.fecha.strftime("%d %B %Y") %></td>
         <td><%= lab3ro.campo.nombre %></td>
         <td><%= lab3ro.lote.lote %></td>
         <td><%= lab3ro.actividad.actividad %></td>
         <td><%= lab3ro.superficie %></td>
         <td><%= lab3ro.labor %></td>
         <td><%= lab3ro.costo %></td>
-        <td><%= lab3ro.costo % lab3ro.superficie %></td>
+        <td><%= lab3ro.costo / lab3ro.superficie %></td>
         <td><%= lab3ro.comentario %></td>
         <td><%= link_to 'Show', lab3ro %></td>
         <td><%= link_to 'Edit', edit_lab3ro_path(lab3ro) %></td>

@@ -11,21 +11,35 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :actividad, "Actividad" %><br>
-    <%= f.text_field :actividad %>
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :actividad %>
+      <%= f.text_field :actividad %>
+    </div>
   </div>
-  <div class="select">
-    <%= f.label :tipo, "Tipo de Actividad" %><br>
-    <%= f.select :tipo, options_for_select([["Agricultura"], ["Forrajes- Pasturas"], ["Forrajes- Silos"], ["Forrajes- Verdeos de Invierno"], ["Forrajes- Verdeos de Verano"]]) %>
+    
+  <div class="row">
+    <div class="large-3 columns">
+        <%= f.label :tipo, "Tipo de Actividad" %>
+        <%= f.select :tipo, options_for_select([["Agricultura"], ["Forrajes- Pasturas"], ["Forrajes- Silos"], ["Forrajes- Verdeos de Invierno"], ["Forrajes- Verdeos de Verano"]]) %>
+    </div>
   </div>
-  <div class="radio_button">
-    <%= f.radio_button(:sem_ini, true) %>
-    <%= f.label(:sem_ini, "Sementera al Inicio") %>
-    <%= f.radio_button(:sem_fin, true) %>
-    <%= label_tag(:sem_fin, "Sementera al Cierre") %>
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :sementera, "Sementera" %>
+      <%= f.select :sementera, options_for_select([["Sementera al Inicio"], ["Ejercicio"], ["Sementera al Cierre"]]) %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit "Aceptar" %>
+
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+        <li class="button tiny"><%= link_to 'Volver', facy_rems_path %></li>
+      </ul>
+    </div>
   </div>
+
+
+
 <% end %>

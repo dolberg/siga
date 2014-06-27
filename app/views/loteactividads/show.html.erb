@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Usuario:</strong>
+  <%= @loteactividad.usuario %>
+</p>
+
+<p>
+  <strong>Campo:</strong>
+  <%= @loteactividad.campo.nombre %>
+</p>
+
+<p>
+  <strong>Lote:</strong>
+  <%= @loteactividad.lote.lote %>
+</p>
+
+<p>
+  <strong>Actividad:</strong>
+  <%= @loteactividad.actividad.actividad %> - <%= @loteactividad.actividad.tipo %> - <%= @loteactividad.actividad.sementera %>
+</p>
+
+<%= link_to 'Edit', edit_loteactividad_path(@loteactividad) %> |
+<%= link_to 'Back', loteactividads_path %>

@@ -11,15 +11,24 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :labor, "Labor" %><br>
-    <%= f.text_field :labor %>
+  <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :labor, "Labor" %>
+      <%= f.text_field :labor %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :coef, "Coeficiente" %><br>
-    <%= f.text_field :coef %>
+ <div class="row">
+    <div class="large-3 columns">
+      <%= f.label :coef, "Coeficiente" %>
+      <%= f.text_field :coef %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit "Aceptar" %>
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+        <li class="button tiny"><%= link_to 'Volver', coefuta_path %></li>
+      </ul>
+    </div>
   </div>
 <% end %>
