@@ -2,7 +2,8 @@ class CamposController < ApplicationController
 
   before_action :set_campo, only: [:show, :edit, :update, :destroy] 
   def index
-    @campos = Campo.all.where(:usuario_id => @current_user.id)
+    
+    
   end
 
   def new
@@ -11,7 +12,7 @@ class CamposController < ApplicationController
 
   def create
     @campo = Campo.new(campo_params)
-    @campo.usuario_id = @current_user.id
+    @campo.empresa_id = @current_empresa.id
       if @campo.save()
         redirect_to campos_path, :notice => "El registro ha sido creado";
       else
@@ -24,21 +25,12 @@ class CamposController < ApplicationController
   end
 
   def edit
-    @nombre = @campo.nombre
-    @superficie = @campo.superficie
-    @provincia = @campo.provincia
-    @partido = @campo.partido
-    @localidad = @campo.localidad
+    
   end
 
   def update
 
-    @campo.nombre = params[:campo]["nombre"]
-    @campo.superficie = params[:campo]["superficie"]
-    @campo.provincia = params[:campo]["provincia"]
-    @campo.partido = params[:campo]["partido"]
-    @campo.localidad = params[:campo]["localidad"]
-    if @campo.save()
+    if @campo.update(campo_params)
       redirect_to campos_path
     else
       render "edit"
@@ -71,7 +63,7 @@ class CamposController < ApplicationController
     end
 
     def campo_params
-      params.require(:campo).permit(:usuario_id, :nombre, :superficie, :provincia, :partido, :localidad)
+      params.require(:campo).permit(:empresa_id, :nombre, :superficie, :provincia, :partido, :localidad)
     end
 
 end

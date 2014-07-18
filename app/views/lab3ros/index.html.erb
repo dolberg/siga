@@ -1,48 +1,130 @@
-<h1>Listing lab3ros</h1>
+<h1>Labores de Terceros</h1>
+<a href="#" data-reveal-id="Modal2"><button class="tiny">Nueva Labor</button></a>
 
+<div id="Modal2" class="reveal-modal" data-reveal>
+  <iframe width="420" height="420" src="/lab3ros/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", lab3ros_path %></button></a>
+</div>
 <table>
   <thead>
     <tr>
-      <th>Fecha</th>
-      <th>Campo</th>
-      <th>Lote</th>
       <th>Actividad</th>
-      <th>Superficie</th>
-      <th>Labor</th>
-      <th>Costo</th>
-      <th>Costo/ha</th>
-      <th>Comentario</th>
-      <th colspan="3"></th>
+      
     </tr>
   </thead>
 
   <tbody>
-    <% @lab3ros.each do |lab3ro| %>
-      <tr>
-        <td><%= lab3ro.fecha.strftime("%d %B %Y") %></td>
-        <td><%= lab3ro.campo.nombre %></td>
-        <td><%= lab3ro.lote.lote %></td>
-        <td><%= lab3ro.actividad.actividad %></td>
-        <td><%= lab3ro.superficie %></td>
-        <td><%= lab3ro.labor %></td>
-        <td><%= lab3ro.costo %></td>
-        <td><%= lab3ro.costo / lab3ro.superficie %></td>
-        <td><%= lab3ro.comentario %></td>
-        <td><%= link_to 'Show', lab3ro %></td>
-        <td><%= link_to 'Edit', edit_lab3ro_path(lab3ro) %></td>
-        <td><%= link_to 'Destroy', lab3ro, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @actividads.each do |actividad| %>
+    <tr>
+      <td>
+        <dl class="accordion" data-accordion>
+          <dd class="accordion-navigation">
+            <a href="#panel<%=actividad.id%>"><%= actividad.actividad %></a>
+            <div id="panel<%=actividad.id%>" class="content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Campo</th>
+                    <th>Lote</th>
+                    <th>Actividad</th>
+                    <th>Superficie</th>
+                    <th>Labor</th>
+                    <th>Costo</th>
+                    <th>Costo/ha</th>
+                    <th>Comentario</th>
+                    <th colspan="3"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <%@lab3ros = Lab3ro.all.where(:actividad_id => actividad.id)%>
+                  <% @lab3ros.each do |lab3ro| %>
+                  <tr>
+                    <td><%= lab3ro.fecha.strftime("%d %B %Y") %></td>
+                    <td><%= lab3ro.campo.nombre %></td>
+                    <td><%= lab3ro.lote.lote %></td>
+                    <td><%= lab3ro.actividad.actividad %></td>
+                    <td><%= lab3ro.superficie %></td>
+                    <td><%= lab3ro.labor %></td>
+                    <td><%= lab3ro.costo %></td>
+                    <td><%= lab3ro.costo / lab3ro.superficie %></td>
+                    <td><%= lab3ro.comentario %></td>
+                     <td>
+                      <ul class="button-group">
+                        <li><a href="#" data-reveal-id="Modal2-<%=lab3ro.id%>"><button class="tiny">Modificar</button></a></li>
+                        <div id="Modal2-<%=lab3ro.id%>" class="reveal-modal" data-reveal>
+                          <iframe width="420" height="420" src= /lab3ros/<%=lab3ro.id%>/edit  frameborder="0" allowfullscreen></iframe>
+                          <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", lab3ros_path %></button></a>
+                        </div>
+                        <li><button class="tiny"><%= link_to 'Borrar', lab3ro, method: :delete, data: { confirm: 'Are you sure?'} %></button></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <dl class="accordion" data-accordion>
+                        <dd class="accordion-navigation">
+                          <a href="#panel<%=lab3ro.id%>-1">Productos</a>
+                          <div class="content" id="panel<%=lab3ro.id%>-1">
+                             <a href="#" data-reveal-id="Modal<%=lab3ro.id%>"><button class="tiny">Agregar Producto</button></a>
+
+                            <div id="Modal<%=lab3ro.id%>" class="reveal-modal" data-reveal>
+                              <iframe width="420" height="420" src="/lab3ros/<%=lab3ro.id%>/insumolab3ros/new" frameborder="0" allowfullscreen></iframe>
+                              <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", lab3ros_path %></button></a>
+                            </div>
+                            <table>
+                              <thead align = "center">
+                                <tr>
+                                  <th>Producto</th>
+                                  <th>Cantidad</th>
+                                  <th>Dosis</th>
+                                  <th>Costo</th>
+                                  <th>Categoría</th>
+                                  <th>Comentario</th>
+                                  <th colspan="3"></th>
+                                </tr>
+                              </thead>
+
+                              <tbody align= "center">
+                                <% @insumolab3ros = Insumolab3ro.where(:lab3ro_id => lab3ro)%>
+                                <% @insumolab3ros.each do |a| %>
+                                <tr>
+                                  <td><%= a.producto.producto %></td>
+                                  <td><%= a.cantidad %>(<%=a.producto.unidad%>)</td>
+                                  <td><%=a.cantidad / lab3ro.superficie%>(<%=a.producto.unidad%>/ha</td>
+                                  <td><%= a.cantidad * a.precio %></td>
+                                  <td><%= a.categoria %></td>
+                                  <td><%= a.comentario %></td>
+                                  <td>
+                                    <ul class="button-group">
+                                      <li><a href="#" data-reveal-id="Modal1-<%=a.id%>"><button class="tiny">Modificar</button></a></li>
+                                      <div id="Modal1-<%=a.id%>" class="reveal-modal" data-reveal>
+                                        <iframe width="420" height="420" src= "lab3ros/<%=lab3ro.id%>/insumolab3ros/<%=a.id%>/edit"  frameborder="0" allowfullscreen></iframe>
+                                        <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", lab3ros_path %></button></a>
+                                      </div>
+                                      <li><button class="tiny"><%= link_to "Borrar", lab3ro_insumolab3ro_path(lab3ro, a), :confirm => "Seguro desea eliminar este registro?", :method => :delete %></button></li>
+                                    </ul>
+                                  </td>
+                                </tr>
+                                <% end %>
+                               </tbody>  
+                            </table>
+                          </div>
+                        </dd>
+                      </dl>
+                    </td>
+                    <td colspan = "11">
+                    </td>
+                  </tr>
+                  <%end%>
+                </tbody>
+              </table>
+            </div>
+          </dd>
+        </dl>
+      </td> 
+    </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-<p>
-<%= link_to 'New Lab3ro', new_lab3ro_path %>
-</p>
-<p>
-   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
-</p>
-<p>
-  <%= link_to "Labores", :controller => "labgrale", :action => "labgrales" %>
-</p>

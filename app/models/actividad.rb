@@ -1,3 +1,4 @@
 class Actividad < ActiveRecord::Base
-  belongs_to :usuario
+  belongs_to :empresa
+  belongs_to :producto
 end

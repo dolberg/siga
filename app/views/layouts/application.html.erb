@@ -13,6 +13,11 @@
   </head>
 
   <body>
+    <%= if @current_user != nil
+            render '/layouts/topbar'
+        end %>
+
+
 
     <%= yield %>
     <%= javascript_include_tag "application" %>

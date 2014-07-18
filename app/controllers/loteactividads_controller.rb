@@ -4,7 +4,7 @@ class LoteactividadsController < ApplicationController
   # GET /loteactividads
   # GET /loteactividads.json
   def index
-    @loteactividads = Loteactividad.all.where(:usuario_id => @current_user.id)
+    
   end
 
   # GET /loteactividads/1
@@ -25,13 +25,12 @@ class LoteactividadsController < ApplicationController
   # POST /loteactividads.json
   def create
     @loteactividad = Loteactividad.new(loteactividad_params)
-    @loteactividad.usuario_id = @current_user.id
-
-    respond_to do |format|
-      if @loteactividad.save
-        format.html { redirect_to @loteactividad, notice: 'Loteactividad was successfully created.' }
-        format.json { render :show, status: :created, location: @loteactividad }
-      else
+    @loteactividad.empresa_id = @current_empresa.id
+    
+    if @loteactividad.save
+      redirect_to loteactividads_path
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @loteactividad.errors, status: :unprocessable_entity }
       end
@@ -41,11 +40,11 @@ class LoteactividadsController < ApplicationController
   # PATCH/PUT /loteactividads/1
   # PATCH/PUT /loteactividads/1.json
   def update
-    respond_to do |format|
-      if @loteactividad.update(loteactividad_params)
-        format.html { redirect_to @loteactividad, notice: 'Loteactividad was successfully updated.' }
-        format.json { render :show, status: :ok, location: @loteactividad }
-      else
+  
+    if @loteactividad.update(loteactividad_params)
+      redirect_to loteactividads_path
+    else
+      respond_to do |format|
         format.html { render :edit }
         format.json { render json: @loteactividad.errors, status: :unprocessable_entity }
       end
@@ -70,6 +69,6 @@ class LoteactividadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def loteactividad_params
-      params.require(:loteactividad).permit(:usuario_id, :campo_id, :lote_id, :actividad_id)
+      params.require(:loteactividad).permit(:empresa_id, :campo_id, :lote_id, :actividad_id, :superficie, :produccion, :precioproduccion)
     end
 end

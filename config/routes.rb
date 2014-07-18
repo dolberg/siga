@@ -1,5 +1,25 @@
 Rails.application.routes.draw do
 
+  resources :ventas
+
+  get 'resultado/agricultura'
+
+  get 'resultado/forrajesconservados'
+
+  get 'resultado/forrajes'
+
+  get 'resultado/sementerafinal'
+
+  get 'resultado/produccion'
+
+  resources :productos
+
+  get 'inicio/inicio'
+
+  resources :usuarioempresas
+
+  resources :empresas
+
   resources :loteactividads
 
   resources :lab3ros do
@@ -77,9 +97,13 @@ Rails.application.routes.draw do
   post "usuarios/exito"
   get "principal/principal"
   post "principal/principal"
+  get "principal/inicio"
+  post "principal/inicio"
   get "usuarios/cerrar_sesion"
   post "usuarios/cerrar_sesion"
-  
+  get "usuarioempresas/exito"
+  post "usuarioempresas/exito"
+
   resources :usuarios
 
   # The priority is based upon order of creation: first created -> highest priority.

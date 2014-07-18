@@ -2,8 +2,8 @@ class CoefutaController < ApplicationController
   before_action :set_coefutum, only: [:show, :edit, :update, :destroy]
 
   def index
-    @coefuta = Coefutum.all.where(:usuario_id => @current_user.id)
   end
+
 
   def show
   end
@@ -18,13 +18,13 @@ class CoefutaController < ApplicationController
 
   def create
     @coefutum = Coefutum.new(coefutum_params)
-    @coefutum.usuario_id = @current_user.id
+    @coefutum.empresa_id = @current_empresa.id
 
-    respond_to do |format|
-      if @coefutum.save
-        format.html { redirect_to @coefutum}
-        format.json { render :show, status: :created, location: @coefutum }
-      else
+    
+    if @coefutum.save
+      redirect_to coefuta_path
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @coefutum.errors, status: :unprocessable_entity }
       end
@@ -32,11 +32,11 @@ class CoefutaController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @coefutum.update(coefutum_params)
-        format.html { redirect_to @coefutum}
-        format.json { render :show, status: :ok, location: @coefutum }
-      else
+    
+    if @coefutum.update(coefutum_params)
+      redirect_to coefuta_path   
+    else
+      respond_to do |format|
         format.html { render :edit }
         format.json { render json: @coefutum.errors, status: :unprocessable_entity }
       end
@@ -61,6 +61,6 @@ class CoefutaController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def coefutum_params
-      params.require(:coefutum).permit(:usuario_id, :labor, :coef)
+      params.require(:coefutum).permit(:empresa_id, :labor, :coef)
     end
 end

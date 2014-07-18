@@ -1,5 +1,5 @@
 class Usuario < ActiveRecord::Base
-	has_many :insumo
+	has_many :producto
 	has_many :campo
 	has_many :compra_insumo
 	#Validaciones de nombre

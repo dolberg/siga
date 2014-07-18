@@ -1,48 +1,137 @@
-<h1>Listing labors</h1>
+<h1>Labores Propias</h1>
+<a href="#" data-reveal-id="Modal2"><button class="tiny">Nueva Labor</button></a>
 
+<div id="Modal2" class="reveal-modal" data-reveal>
+  <iframe width="420" height="420" src="/labors/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", labors_path %></button></a>
+</div>
 <table>
   <thead>
     <tr>
-      <th>Fecha</th>
-      <th>Campo</th>
-      <th>Lote</th>
       <th>Actividad</th>
-      <th>Superficie</th>
-      <th>Labor</th>
-      <th>Coeficiente UTA</th>
-      <th>UTA's</th>
-      <th>Comentario</th>
-      <th colspan="3"></th>
+      
     </tr>
   </thead>
 
   <tbody>
-    <% @labors.each do |labor| %>
-      <tr>
-        <td><%= labor.fecha.strftime("%d %B %Y") %></td>
-        <td><%= labor.campo.nombre %></td>
-        <td><%= labor.lote.lote %></td>
-        <td><%= labor.actividad.actividad %></td>
-        <td><%= labor.superficie %> ha</td>
-        <td><%= labor.coefutum.labor %></td>
-        <td><%= labor.coefutum.coef %></td>
-        <td><%= labor.coefutum.coef * labor.superficie %></td>
-        <td><%= labor.comentario %></td>
-        <td><%= link_to 'Show', labor %></td>
-        <td><%= link_to 'Edit', edit_labor_path(labor) %></td>
-        <td><%= link_to 'Destroy', labor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+    <% @actividads.each do |actividad| %>
+    <tr>
+      <td>
+        <dl class="accordion" data-accordion>
+          <dd class="accordion-navigation">
+            <a href="#panel<%=actividad.id%>"><%= actividad.actividad %></a>
+            <div id="panel<%=actividad.id%>" class="content">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Campo</th>
+                    <th>Lote</th>
+                    <th>Actividad</th>
+                    <th>Superficie</th>
+                    <th>Labor</th>
+                    <th>Coeficiente UTA</th>
+                    <th>UTA's</th>
+                    <th>Valor UTA</th>
+                    <th>Costo</th>
+                    <th>Comentario</th>
+                    <th colspan="3"></th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <%@labors = Labor.all.where(:actividad_id => actividad.id)%>
+                  <% @labors.each do |labor| %>
+                  <tr>
+                    <td><%= labor.fecha.strftime("%d %B %Y") %></td>
+                    <td><%= labor.campo.nombre %></td>
+                    <td><%= labor.lote.lote %></td>
+                    <td><%= labor.actividad.actividad %></td>
+                    <td><%= labor.superficie %> ha</td>
+                    <td><%= labor.coefutum.labor %></td>
+                    <td><%= labor.coefutum.coef %></td>
+                    <td><%= utas=labor.coefutum.coef * labor.superficie %></td>
+                    <td>250</td>
+                    <td><%=250*utas%></td>
+                    <td><%= labor.comentario %></td>
+                    <td>
+                      <ul class="button-group">
+                        <li><a href="#" data-reveal-id="Modal2-<%=labor.id%>"><button class="tiny">Modificar</button></a></li>
+                        <div id="Modal2-<%=labor.id%>" class="reveal-modal" data-reveal>
+                          <iframe width="420" height="420" src= /labors/<%=labor.id%>/edit  frameborder="0" allowfullscreen></iframe>
+                          <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", labors_path %></button></a>
+                        </div>
+                        <li><button class="tiny"><%= link_to 'Borrar', labor, method: :delete, data: { confirm: 'Are you sure?'} %></button></li>
+                      </ul>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <dl class="accordion" data-accordion>
+                        <dd class="accordion-navigation">
+                          <a href="#panel<%=labor.id%>-1">Productos</a>
+                          <div class="content" id="panel<%=labor.id%>-1">
+                            <a href="#" data-reveal-id="Modal<%=labor.id%>"><button class="tiny">Agregar Producto</button></a>
+
+                            <div id="Modal<%=labor.id%>" class="reveal-modal" data-reveal>
+                              <iframe width="420" height="420" src="/labors/<%=labor.id%>/insumolabores/new" frameborder="0" allowfullscreen></iframe>
+                              <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", labors_path %></button></a>
+                            </div>
+                            <table>
+                              <thead align = "center">
+                                <tr>
+                                  <th>Producto</th>
+                                  <th>Cantidad</th>
+                                  <th>Dosis</th>
+                                  <th>Costo</th>
+                                  <th>Categoría</th>
+                                  <th>Comentario</th>
+                                  <th colspan="3"></th>
+                                </tr>
+                              </thead>
+
+                              <tbody align= "center">
+                                <% @insumolabores = Insumolabore.where(:labor_id => labor)%>
+                                <% @insumolabores.each do |a| %>
+                                <tr>
+                                  <td><%= a.producto.producto %></td>
+                                 <td><%= a.cantidad %> <%=a.producto.unidad%></td>
+                                  <td><%=a.cantidad / labor.superficie%> <%=a.producto.unidad%>/ha</td>
+                                  <td><%= a.cantidad * a.precio %></td>
+                                  <td><%= a.categoria %></td>
+                                  <td><%= a.comentario %></td>
+                                  <td>
+                                    <ul class="button-group">
+                                      <li><a href="#" data-reveal-id="Modal1-<%=a.id%>"><button class="tiny">Modificar</button></a></li>
+                                      <div id="Modal1-<%=a.id%>" class="reveal-modal" data-reveal>
+                                        <iframe width="420" height="420" src= "labors/<%=labor.id%>/insumolabores/<%=a.id%>/edit"  frameborder="0" allowfullscreen></iframe>
+                                        <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", labors_path %></button></a>
+                                      </div>
+                                      <li><button class="tiny"><%= link_to "Borrar", labor_insumolabore_path(labor, a), :confirm => "Seguro desea eliminar este registro?", :method => :delete %></button></li>
+                                    </ul>
+                                  </td>
+                                </tr>
+                                <% end %>
+                               </tbody>  
+                            </table>
+                          </div>
+                        </dd>
+                      </dl>
+                    </td>
+                    <td colspan = "11">
+                    </td>
+                  </tr>
+                  <%end%>
+                </tbody>
+              </table>
+            </div>
+          </dd>
+        </dl>
+      </td> 
+    </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-<p>
-<%= link_to 'New Labor', new_labor_path %>
-</p>
-<p>
-   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
-</p>
-<p>
-  <%= link_to "Labores", :controller => "labgrale", :action => "labgrales" %>
-</p>
+
+

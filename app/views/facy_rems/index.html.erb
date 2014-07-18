@@ -1,32 +1,104 @@
-<h1>Lista de Facturas y Remitos</h1>
+<h1>Facturas y Remitos</h1>
+<a href="#" data-reveal-id="Modal2"><button class="tiny">Nueva Factura o Remito</button></a>
 
+<div id="Modal2" class="reveal-modal" data-reveal>
+      <iframe width="420" height="420" src="/facy_rems/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", facy_rems_path %></button></a>
+</div>
 <table>
   <thead>
     <tr>
-      <th>Fecha</th>
-      <th>N° Comprobante</th>
-      <th>Proveedor</th>
-      <th colspan="3"></th>
+      <th>Fecha / N° Comprobante / Proveedor</th>
+      <th  colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @facy_rems.each do |facy_rem| %>
       <tr>
-        <td><%= facy_rem.fecha %></td>
-        <td><%= facy_rem.comprobante %></td>
-        <td><%= facy_rem.proveedor %></td>
-        <td><%= link_to 'Ver', facy_rem %></td>
-        <td><%= link_to 'Modificar', edit_facy_rem_path(facy_rem) %></td>
-        <td><%= link_to 'Borrar', facy_rem, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        <td>
+          <dl class="accordion" data-accordion>
+            <dd class="accordion-navigation">
+              <a href="#panel<%=facy_rem.id%>">
+                <%= facy_rem.fecha.strftime("%d %B %Y") %> / <%= facy_rem.comprobante %> / <%= facy_rem.proveedor %>  
+              </a>
+                <div id="panel<%=facy_rem.id%>" class="content">
+                  <dl class="tabs" data-tab>
+                    <dd class="active"><a href="#panel<%=facy_rem.id%>2-1">Productos</a></dd>
+                    <dd><a href="#panel<%=facy_rem.id%>2-2">Tab 2</a></dd>
+                    <dd><a href="#panel<%=facy_rem.id%>2-3">Tab 3</a></dd>
+                    <dd><a href="#panel<%=facy_rem.id%>2-4">Tab 4</a></dd>
+                  </dl>
+                  <div class="tabs-content">
+                    <div class="content active" id="panel<%=facy_rem.id%>2-1">
+                     <a href="#" data-reveal-id="Modal<%=facy_rem.id%>"><button class="tiny">Agregar Producto</button></a>
 
-<br>
+                    <div id="Modal<%=facy_rem.id%>" class="reveal-modal" data-reveal>
+                      <iframe width="420" height="420" src="/facy_rems/<%=facy_rem.id%>/compra_insumos/new" frameborder="0" allowfullscreen></iframe>
+                      <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", facy_rems_path %></button></a>
+                    </div>
+                      <table>
+                        <thead align = "center">
+                          <tr>
+                            <th>Producto</th>
+                            <th>Marca</th>
+                            <th>Cantidad Facturada</th>
+                            <th>Cantidad remitida</th>
+                            <th>Monto</th>
+                            <th colspan="3"></th>
+                          </tr>
+                        </thead>
 
-<%= link_to 'Nueva Factura o Remito', new_facy_rem_path %>
-<p>
-   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
-</p>
+                        <tbody align= "center">
+                          <% @compra_insumos = CompraInsumo.where(:facy_rem_id => facy_rem.id) %>
+                          <% @compra_insumos.each do |compra_insumo| %>
+                          <tr>
+                            <td><%= compra_insumo.producto.producto %></td>
+                            <td><%= compra_insumo.marca %></td>
+                            <td><%= compra_insumo.cant_fac %></td>
+                            <td><%= compra_insumo.cant_rem %></td>
+                            <td><%= compra_insumo.monto %></td>
+                            <td>
+                              <ul class="button-group">
+                                <li><a href="#" data-reveal-id="Modal1-<%=compra_insumo.id%>"><button class="tiny">Modificar</button></a></li>
+                                <div id="Modal1-<%=compra_insumo.id%>" class="reveal-modal" data-reveal>
+                                  <iframe width="420" height="420" src= "facy_rems/<%=facy_rem.id%>/compra_insumos/<%=compra_insumo.id%>/edit"  frameborder="0" allowfullscreen></iframe>
+                                  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", facy_rems_path %></button></a>
+                                </div>
+                                <li><button class="tiny"><%= link_to "Eliminar", facy_rem_compra_insumo_path(facy_rem, compra_insumo), :confirm => "Seguro desea eliminar este registro?", :method => :delete %></td></button></li>
+                              </ul>
+                            </td> 
+                          </tr>
+                          <% end %>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div class="content" id="panel<%=facy_rem.id%>2-2">
+                      <p>Second panel content goes here...</p>
+                    </div>
+                    <div class="content" id="panel<%=facy_rem.id%>2-3">
+                      <p>Third panel content goes here...</p>
+                    </div>
+                    <div class="content" id="panel<%=facy_rem.id%>2-4">
+                      <p>Fourth panel content goes here...</p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+          </td>
+          <td>
+            <ul class="button-group">
+              <li><a href="#" data-reveal-id="Modal2-<%=facy_rem.id%>"><button class="tiny">Modificar</button></a></li>
+              <div id="Modal2-<%=facy_rem.id%>" class="reveal-modal" data-reveal>
+                <iframe width="420" height="420" src= /facy_rems/<%=facy_rem.id%>/edit  frameborder="0" allowfullscreen></iframe>
+                <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", facy_rems_path %></button></a>
+              </div>
+              <li><button class="tiny"><%= link_to 'Borrar', facy_rem, method: :delete, data: { confirm: 'Are you sure?'}%></button></li>
+            </ul>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+

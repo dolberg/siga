@@ -1,0 +1,448 @@
+<h1>Resultados Cultivos y Forrajes- Sementeras al cierre </h1>
+
+<table>
+	<thead>
+    	<tr>
+      		<th>Actividad</th>
+      		<th  colspan="3"></th>
+    	</tr>
+  	</thead>
+  	<tbody>
+    	<% @actividads.where(:sementera=>"Sementera al Cierre").each do |actividad| %>
+      	<tr>
+            <td>
+                <dl class="accordion" data-accordion>
+                    <dd class="accordion-navigation">
+                        <a href="#panel<%=actividad.id%>"><%= actividad.actividad %></a>
+                        <div id="panel<%=actividad.id%>" class="content">
+                            <dl class="tabs" data-tab>
+                            <dd class="active"><a href="#panel<%=actividad.id%>2-1">General</a></dd>
+                            <dd><a href="#panel<%=actividad.id%>2-2">Por Establecimiento</a></dd>
+                            </dl>
+                            <div class="tabs-content">
+                            <div class="content active" id="panel<%=actividad.id%>2-1">
+                            <%buscaactividad=Loteactividad.where(:actividad=>actividad)%>
+                            <strong>Superficie:</strong> <%=superficie=buscaactividad.sum(:superficie)%>
+                            <br/>
+                            <br/>
+                            
+                            <strong>Costos</strong>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th>/ha</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <%lab3ro=Lab3ro.where(:actividad=>actividad)%>
+                                    <%labppia=Labor.where(:actividad=>actividad)%>
+                                    <%insumolab3ro=Insumolab3ro.where(:lab3ro=>lab3ro)%>
+                                    <%insumolabore=Insumolabore.where(:labor=>labppia)%>
+                                    
+                                    <tr>
+                                        <td colspan="3"><strong>Labores</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Barbecho</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Barbecho").each do |b|%><%a +=b.coefutum.coef*b.superficie*250%><%end%><%=costobarbechos=lab3ro.where(:momento=>"Barbecho").sum(:costo)+a%></td>
+                                        <td>$<%=costobarbechos/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Siembra</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Siembra").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%><%=costosiembras=lab3ro.where(:momento=>"Siembra").sum(:costo)+a%></td>
+                                        <td>$<%=costosiembras/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Preemergencia</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Preemergencia").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%><%=costopreemergencias=lab3ro.where(:momento=>"Preemergencia").sum(:costo)+a%></td>
+                                        <td>$<%=costopreemergencias/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cultivo</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Cultivo").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%><%=costocultivos=lab3ro.where(:momento=>"Cultivo").sum(:costo)+a%></td>
+                                        <td>$<%=costocultivos/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cosecha</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Cosecha").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%><%=costocosechas=lab3ro.where(:momento=>"Cosecha").sum(:costo)+a%></td>
+                                        <td>$<%=costocosechas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Labores</strong></td>
+                                        <td><%=costolabores=costobarbechos+costosiembras+costopreemergencias+costocultivos+costocosechas%></td>
+                                        <td><%=costolabores/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Insumos:</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Herbicidas</td>
+                                        <td>$<%costoherbicidas=0%><%lab3roherbicidas=insumolab3ro.where(:categoria=>"Herbicidas")%><%lab3roherbicidas.each do |b|%><%costoherbicidas+=b.cantidad*b.precio%><%end%>
+                                            <%laborherbicidas=insumolabore.where(:categoria=>"Herbicidas")%><%laborherbicidas.each do |b|%><%costoherbicidas += b.cantidad*b.precio%><%end%>
+                                            <%=costoherbicidas%></td>
+                                        <td>$<%=costoherbicidas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fertilizantes</td>
+                                        <td>$<%costofertilizantes = 0%><%lab3rofertilizantes = insumolab3ro.where(:categoria => "Fertilizantes")%> <%lab3rofertilizantes.each do |b|%> <%costofertilizantes += b.cantidad*b.precio%> <%end%> 
+                                            <%laborfertilizantes = insumolabore.where(:categoria => "Fertilizantes")%> <%laborfertilizantes.each do |b|%> <%costofertilizantes += b.cantidad*b.precio%><%end%> 
+                                            <%=costofertilizantes%></td>
+                                        <td>$<%=costofertilizantes/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Insecticidas</td>
+                                        <td>$<%costoinsecticidas = 0%><%lab3roinsecticidas=insumolab3ro.where(:categoria => "Insecticidas")%> <%lab3roinsecticidas.each do |b|%> <%costoinsecticidas+=b.cantidad*b.precio%><%end%> <%laborinsecticidas = insumolabore.where(:categoria => "Insecticidas")%> <%laborinsecticidas.each do |b|%> <%costoinsecticidas+= b.cantidad*b.precio%><%end%> 
+                                            <%=costoinsecticidas%></td>
+                                        <td>$<%=costoinsecticidas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Semillas</td>
+                                        <td>$<%costosemillas = 0%><%lab3rosemillas = insumolab3ro.where(:categoria => "Semillas")%> <%lab3rosemillas.each do |b|%> <%costosemillas += b.cantidad*b.precio%><%end%> 
+                                            <%laborsemillas = insumolabore.where(:categoria => "Semillas")%> <%laborsemillas.each do |b|%> <%costosemillas += b.cantidad*b.precio%> <%end%> 
+                                            <%=costosemillas%></td>
+                                        <td>$<%=costosemillas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inoculantes y Curasemillas</td>
+                                        <td>$<%costoinoculantes = 0%><%lab3roinoculantes = insumolab3ro.where(:categoria => "Inoculantes y Curasemillas")%> <%lab3roinoculantes.each do |b|%> <%costoinoculantes+= b.cantidad*b.precio%><%end%> 
+                                            <%laborinoculantes = insumolabore.where(:categoria => "Inoculantes y Curasemillas")%> <%laborinoculantes.each do |b|%> <%costoinoculantes+= b.cantidad*b.precio%><%end%> 
+                                            <%=costoinoculantes%></td>
+                                        <td>$<%=costoinoculantes/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Otros</td>
+                                        <td>$<%costootros = 0%><%lab3rootros = insumolab3ro.where(:categoria => "Otros")%> <%lab3rootros.each do |b|%> <%costootros+= b.cantidad*b.precio%><%end%> 
+                                            <%laborotros = insumolabore.where(:categoria => "Otros")%> <%laborotros.each do |b|%> <%costootros+= b.cantidad*b.precio%><%end%> 
+                                            <%=costootros%></td>
+                                        <td>$<%=costootros/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Insumos:</strong></td>
+                                        <td>$<%=insumostotal=costoherbicidas+costofertilizantes+costoinsecticidas+costosemillas+costoinoculantes+costootros%></td>
+                                        <td>$<%=insumostotal/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Costos Directos:</strong></td>
+                                        <td>$<%=costostotal=insumostotal+costolabores%></td>
+                                        <td>$<%=costostotal/superficie%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            </div>
+                            <div class="content" id="panel<%=actividad.id%>2-2">
+                                <%z=Loteactividad.all.where(:actividad=>actividad)%>
+                                
+                                <table>
+    <thead>
+        <tr>
+            <th>Establecimiento</th>
+            <th  colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% z.each do |x| %>
+        <%campo=x.campo%>
+        <tr>
+            <td>
+                <dl class="accordion" data-accordion>
+                    <dd class="accordion-navigation">
+                        <a href="#panel1-<%=campo.id%>"><%= campo.nombre %></a>
+                        <div id="panel1-<%=campo.id%>" class="content">
+                            <dl class="tabs" data-tab>
+                            <dd class="active"><a href="#panel1-<%=campo.id%>2-1">General</a></dd>
+                            <dd><a href="#panel1-<%=campo.id%>2-2">Por Lote</a></dd>
+                            </dl>
+                            <div class="tabs-content">
+                            <div class="content active" id="panel1-<%=campo.id%>2-1">
+                            <%buscaestablecimientoactividad=Loteactividad.where(:actividad=>actividad).where(:campo=>campo)%>
+                            <strong>Superficie:</strong> <%=superficie=buscaestablecimientoactividad.sum(:superficie)%>
+                            <br/>
+                            <br/>
+                           
+                            <strong>Costos</strong>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th>/ha</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <%lab3ro=Lab3ro.where(:actividad=>actividad).where(:campo=>campo)%>
+                                    <%labppia=Labor.where(:actividad=>actividad).where(:campo=>campo)%>
+                                    <%insumolab3ro=Insumolab3ro.where(:lab3ro=>lab3ro)%>
+                                    <%insumolabore=Insumolabore.where(:labor=>labppia)%>
+                                    
+                                    <tr>
+                                        <td colspan="3"><strong>Labores</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Barbecho</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Barbecho").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costobarbechos=lab3ro.where(:momento=>"Barbecho").sum(:costo)+a%></td>
+                                        <td>$<%=costobarbechos/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Siembra</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Siembra").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costosiembras=lab3ro.where(:momento=>"Siembra").sum(:costo)+a%></td>
+                                        <td>$<%=costosiembras/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Preemergencia</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Preemergencia").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costopreemergencias=lab3ro.where(:momento=>"Preemergencia").sum(:costo)+a%></td>
+                                        <td>$<%=costopreemergencias/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cultivo</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Cultivo").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costocultivos=lab3ro.where(:momento=>"Cultivo").sum(:costo)+a%></td>
+                                        <td>$<%=costocultivos/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cosecha</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Cosecha").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costocosechas=lab3ro.where(:momento=>"Cosecha").sum(:costo)+a%></td>
+                                        <td>$<%=costocosechas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Labores</strong></td>
+                                        <td><%=costolabores=costobarbechos+costosiembras+costopreemergencias+costocultivos+costocosechas%></td>
+                                        <td><%=costolabores/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Insumos:</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Herbicidas</td>
+                                        <td>$<%costoherbicidas=0%><%lab3roherbicidas=insumolab3ro.where(:categoria=>"Herbicidas")%><%lab3roherbicidas.each do |b|%><%costoherbicidas+=b.cantidad*b.precio%><%end%>
+                                            <%laborherbicidas=insumolabore.where(:categoria=>"Herbicidas")%><%laborherbicidas.each do |b|%><%costoherbicidas += b.cantidad*b.precio%><%end%>
+                                            <%=costoherbicidas%></td>
+                                        <td>$<%=costoherbicidas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fertilizantes</td>
+                                        <td>$<%costofertilizantes = 0%><%lab3rofertilizantes = insumolab3ro.where(:categoria => "Fertilizantes")%> <%lab3rofertilizantes.each do |b|%> <%costofertilizantes += b.cantidad*b.precio%> <%end%> 
+                                            <%laborfertilizantes = insumolabore.where(:categoria => "Fertilizantes")%> <%laborfertilizantes.each do |b|%> <%costofertilizantes += b.cantidad*b.precio%><%end%> 
+                                            <%=costofertilizantes%></td>
+                                        <td>$<%=costofertilizantes/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Insecticidas</td>
+                                        <td>$<%costoinsecticidas = 0%><%lab3roinsecticidas=insumolab3ro.where(:categoria => "Insecticidas")%> <%lab3roinsecticidas.each do |b|%> <%costoinsecticidas+=b.cantidad*b.precio%><%end%> <%laborinsecticidas = insumolabore.where(:categoria => "Insecticidas")%> <%laborinsecticidas.each do |b|%> <%costoinsecticidas+= b.cantidad*b.precio%><%end%> 
+                                            <%=costoinsecticidas%></td>
+                                        <td>$<%=costoinsecticidas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Semillas</td>
+                                        <td>$<%costosemillas = 0%><%lab3rosemillas = insumolab3ro.where(:categoria => "Semillas")%> <%lab3rosemillas.each do |b|%> <%costosemillas += b.cantidad*b.precio%><%end%> 
+                                            <%laborsemillas = insumolabore.where(:categoria => "Semillas")%> <%laborsemillas.each do |b|%> <%costosemillas += b.cantidad*b.precio%> <%end%> 
+                                            <%=costosemillas%></td>
+                                        <td>$<%=costosemillas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inoculantes y Curasemillas</td>
+                                        <td>$<%costoinoculantes = 0%><%lab3roinoculantes = insumolab3ro.where(:categoria => "Inoculantes y Curasemillas")%> <%lab3roinoculantes.each do |b|%> <%costoinoculantes+= b.cantidad*b.precio%><%end%> 
+                                            <%laborinoculantes = insumolabore.where(:categoria => "Inoculantes y Curasemillas")%> <%laborinoculantes.each do |b|%> <%costoinoculantes+= b.cantidad*b.precio%><%end%> 
+                                            <%=costoinoculantes%></td>
+                                        <td>$<%=costoinoculantes/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Otros</td>
+                                        <td>$<%costootros = 0%><%lab3rootros = insumolab3ro.where(:categoria => "Otros")%> <%lab3rootros.each do |b|%> <%costootros+= b.cantidad*b.precio%><%end%> 
+                                            <%laborotros = insumolabore.where(:categoria => "Otros")%> <%laborotros.each do |b|%> <%costootros+= b.cantidad*b.precio%><%end%> 
+                                            <%=costootros%></td>
+                                        <td>$<%=costootros/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Insumos:</strong></td>
+                                        <td>$<%=insumostotal=costoherbicidas+costofertilizantes+costoinsecticidas+costosemillas+costoinoculantes+costootros%></td>
+                                        <td>$<%=insumostotal/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Costos Directos:</strong></td>
+                                        <td>$<%=costostotal=insumostotal+costolabores%></td>
+                                        <td>$<%=costostotal/superficie%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            </div>
+                            <div class="content" id="panel1-<%=campo.id%>2-2">
+                                <%w=Loteactividad.all.where(:actividad=>actividad).where(:campo=>campo)%>
+                                
+                                <table>
+    <thead>
+        <tr>
+            <th>Lote</th>
+            <th  colspan="3"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <% w.each do |y| %>
+        <%lote=y.lote%>
+        <tr>
+            <td>
+                <dl class="accordion" data-accordion>
+                    <dd class="accordion-navigation">
+                        <a href="#panel2-<%=lote.id%>"><%= lote.lote %></a>
+                        <div id="panel2-<%=lote.id%>" class="content">
+                            
+                            <%buscaloteactividad=Loteactividad.where(:actividad=>actividad).where(:lote=>lote)%>
+                            <strong>Superficie:</strong> <%=superficie=buscaloteactividad.sum(:superficie)%>
+                            <br/>
+                            <br/>
+                            
+                            <strong>Costos</strong>
+
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Total</th>
+                                        <th>/ha</th>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <%lab3ro=Lab3ro.where(:actividad=>actividad).where(:lote=>lote)%>
+                                    <%labppia=Labor.where(:actividad=>actividad).where(:lote=>lote)%>
+                                    <%insumolab3ro=Insumolab3ro.where(:lab3ro=>lab3ro)%>
+                                    <%insumolabore=Insumolabore.where(:labor=>labppia)%>
+                                    
+                                    <tr>
+                                        <td colspan="3"><strong>Labores</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Barbecho</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Barbecho").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costobarbechos=lab3ro.where(:momento=>"Barbecho").sum(:costo)+a%></td>
+                                        <td>$<%=costobarbechos/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Siembra</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Siembra").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costosiembras=lab3ro.where(:momento=>"Siembra").sum(:costo)+a%></td>
+                                        <td>$<%=costosiembras/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Preemergencia</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Preemergencia").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costopreemergencias=lab3ro.where(:momento=>"Preemergencia").sum(:costo)+a%></td>
+                                        <td>$<%=costopreemergencias/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cultivo</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Cultivo").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costocultivos=lab3ro.where(:momento=>"Cultivo").sum(:costo)+a%></td>
+                                        <td>$<%=costocultivos/superficie%></td>
+                                    </tr>
+                                     <tr>
+                                        <td>Cosecha</td>
+                                        <td>$<%a=0%><%labppia.where(:momento=>"Cosecha").each do |b|%><%a+=b.coefutum.coef*b.superficie*250%><%end%>
+                                            <%=costocosechas=lab3ro.where(:momento=>"Cosecha").sum(:costo)+a%></td>
+                                        <td>$<%=costocosechas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Labores</strong></td>
+                                        <td><%=costolabores=costobarbechos+costosiembras+costopreemergencias+costocultivos+costocosechas%></td>
+                                        <td><%=costolabores/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><strong>Insumos:</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Herbicidas</td>
+                                        <td>$<%costoherbicidas=0%><%lab3roherbicidas=insumolab3ro.where(:categoria=>"Herbicidas")%><%lab3roherbicidas.each do |b|%><%costoherbicidas+=b.cantidad*b.precio%><%end%>
+                                            <%laborherbicidas=insumolabore.where(:categoria=>"Herbicidas")%><%laborherbicidas.each do |b|%><%costoherbicidas += b.cantidad*b.precio%><%end%>
+                                            <%=costoherbicidas%></td>
+                                        <td>$<%=costoherbicidas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fertilizantes</td>
+                                        <td>$<%costofertilizantes = 0%><%lab3rofertilizantes = insumolab3ro.where(:categoria => "Fertilizantes")%> <%lab3rofertilizantes.each do |b|%> <%costofertilizantes += b.cantidad*b.precio%> <%end%> 
+                                            <%laborfertilizantes = insumolabore.where(:categoria => "Fertilizantes")%> <%laborfertilizantes.each do |b|%> <%costofertilizantes += b.cantidad*b.precio%><%end%> 
+                                            <%=costofertilizantes%></td>
+                                        <td>$<%=costofertilizantes/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Insecticidas</td>
+                                        <td>$<%costoinsecticidas = 0%><%lab3roinsecticidas=insumolab3ro.where(:categoria => "Insecticidas")%> <%lab3roinsecticidas.each do |b|%> <%costoinsecticidas+=b.cantidad*b.precio%><%end%> <%laborinsecticidas = insumolabore.where(:categoria => "Insecticidas")%> <%laborinsecticidas.each do |b|%> <%costoinsecticidas+= b.cantidad*b.precio%><%end%> 
+                                            <%=costoinsecticidas%></td>
+                                        <td>$<%=costoinsecticidas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Semillas</td>
+                                        <td>$<%costosemillas = 0%><%lab3rosemillas = insumolab3ro.where(:categoria => "Semillas")%> <%lab3rosemillas.each do |b|%> <%costosemillas += b.cantidad*b.precio%><%end%> 
+                                            <%laborsemillas = insumolabore.where(:categoria => "Semillas")%> <%laborsemillas.each do |b|%> <%costosemillas += b.cantidad*b.precio%> <%end%> 
+                                            <%=costosemillas%></td>
+                                        <td>$<%=costosemillas/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Inoculantes y Curasemillas</td>
+                                        <td>$<%costoinoculantes = 0%><%lab3roinoculantes = insumolab3ro.where(:categoria => "Inoculantes y Curasemillas")%> <%lab3roinoculantes.each do |b|%> <%costoinoculantes+= b.cantidad*b.precio%><%end%> 
+                                            <%laborinoculantes = insumolabore.where(:categoria => "Inoculantes y Curasemillas")%> <%laborinoculantes.each do |b|%> <%costoinoculantes+= b.cantidad*b.precio%><%end%> 
+                                            <%=costoinoculantes%></td>
+                                        <td>$<%=costoinoculantes/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Otros</td>
+                                        <td>$<%costootros = 0%><%lab3rootros = insumolab3ro.where(:categoria => "Otros")%> <%lab3rootros.each do |b|%> <%costootros+= b.cantidad*b.precio%><%end%> 
+                                            <%laborotros = insumolabore.where(:categoria => "Otros")%> <%laborotros.each do |b|%> <%costootros+= b.cantidad*b.precio%><%end%> 
+                                            <%=costootros%></td>
+                                        <td>$<%=costootros/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Insumos:</strong></td>
+                                        <td>$<%=insumostotal=costoherbicidas+costofertilizantes+costoinsecticidas+costosemillas+costoinoculantes+costootros%></td>
+                                        <td>$<%=insumostotal/superficie%></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Total Costos Directos:</strong></td>
+                                        <td>$<%=costostotal=insumostotal+costolabores%></td>
+                                        <td>$<%=costostotal/superficie%></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                           
+                            </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+        <%end%>
+    </tbody>
+</table>
+                                </dd>
+                            </dl>
+                        </div>
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+        <%end%>
+    </tbody>
+</table>
+
+                            </div>
+                                </dd>
+                            </dl>
+                        </div>
+                    </dd>
+                </dl>
+            </td>
+        </tr>
+        <%end%>
+    </tbody>
+</table>

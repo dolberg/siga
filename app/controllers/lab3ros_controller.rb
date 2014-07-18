@@ -4,7 +4,7 @@ class Lab3rosController < ApplicationController
   # GET /lab3ros
   # GET /lab3ros.json
   def index
-    @lab3ros = Lab3ro.all.where(:usuario_id => @current_user.id)
+    
   end
 
   # GET /lab3ros/1
@@ -26,13 +26,13 @@ class Lab3rosController < ApplicationController
   # POST /lab3ros.json
   def create
     @lab3ro = Lab3ro.new(lab3ro_params)
-    @lab3ro.usuario_id = @current_user.id
+    @lab3ro.empresa_id = @current_empresa.id
 
-    respond_to do |format|
-      if @lab3ro.save
-        format.html { redirect_to @lab3ro, notice: 'Lab3ro was successfully created.' }
-        format.json { render :show, status: :created, location: @lab3ro }
-      else
+    
+    if @lab3ro.save
+      redirect_to lab3ros_path, notice: 'Lab3ro was successfully created.'
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @lab3ro.errors, status: :unprocessable_entity }
       end
@@ -42,11 +42,11 @@ class Lab3rosController < ApplicationController
   # PATCH/PUT /lab3ros/1
   # PATCH/PUT /lab3ros/1.json
   def update
-    respond_to do |format|
-      if @lab3ro.update(lab3ro_params)
-        format.html { redirect_to @lab3ro, notice: 'Lab3ro was successfully updated.' }
-        format.json { render :show, status: :ok, location: @lab3ro }
-      else
+    
+    if @lab3ro.update(lab3ro_params)
+      redirect_to lab3ros_path, notice: 'Lab3ro was successfully created.'
+    else
+      respond_to do |format|
         format.html { render :edit }
         format.json { render json: @lab3ro.errors, status: :unprocessable_entity }
       end
@@ -71,6 +71,6 @@ class Lab3rosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def lab3ro_params
-      params.require(:lab3ro).permit(:usuario_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :labor, :costo, :comentario)
+      params.require(:lab3ro).permit(:empresa_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :labor, :costo, :comentario, :momento)
     end
 end

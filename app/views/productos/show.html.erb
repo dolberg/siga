@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Empresa:</strong>
+  <%= @producto.empresa %>
+</p>
+
+<p>
+  <strong>Producto:</strong>
+  <%= @producto.producto %>
+</p>
+
+<p>
+  <strong>Saldoinicial:</strong>
+  <%= @producto.saldoinicial %>
+</p>
+
+<p>
+  <strong>Precioinicial:</strong>
+  <%= @producto.precioinicial %>
+</p>
+
+<p>
+  <strong>Preciofinal:</strong>
+  <%= @producto.preciofinal %>
+</p>
+
+<p>
+  <strong>Unidad:</strong>
+  <%= @producto.unidad %>
+</p>
+
+<%= link_to 'Edit', edit_producto_path(@producto) %> |
+<%= link_to 'Back', productos_path %>

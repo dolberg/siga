@@ -1,14 +1,14 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  usuario_id: 
+  empresa_id: 
   producto: MyString
   salin: 1.5
   precin: 1.5
   precfin: 1.5
 
 two:
-  usuario_id: 
+  empresa_id: 
   producto: MyString
   salin: 1.5
   precin: 1.5

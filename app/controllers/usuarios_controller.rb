@@ -1,6 +1,7 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
   skip_before_filter :current_user, :only => [:index, :registrar, :create]
+  skip_before_filter :current_empresa
   # GET /usuarios
   # GET /usuarios.json
   def index
@@ -91,6 +92,7 @@ class UsuariosController < ApplicationController
       #Desloguea al usuario.
       session[:logueado] = false;
       session[:user_id] =  nil;
+      session[:empresa_id] = nil;
       
     end
     def get_login

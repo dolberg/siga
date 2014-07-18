@@ -1,0 +1,65 @@
+<h1>Productos</h1>
+<a href="#" data-reveal-id="Modal2"><button class="tiny">Nuevo Producto</button></a>
+
+<div id="Modal2" class="reveal-modal" data-reveal>
+      <iframe width="420" height="420" src="/productos/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", productos_path %></button></a>
+</div>
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="4"></th>
+      <th colspan="2">Producción del Ejercicio</th>
+      <th colspan="4"></th>
+    </tr>
+    <tr>
+      <th>Producto</th>
+      <th>Saldo Inicial</th>
+      <th>Precio Inicial</th>
+      <th>Valor Inicial</th>
+      <th>Cantidad</th>
+      <th>Valor</th>
+      <th>Precio Final</th>
+      <th>Saldo Final</th>
+      <th>Valor Final</th>
+      
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @productos.each do |producto| %>
+    <%produccion= Loteactividad.all.where(:actividad_id => Actividad.where(:producto_id =>producto.id))%>
+    
+      <tr>
+        <td><%= producto.producto %></td>
+        <td><%= producto.saldoinicial %> (<%= producto.unidad %>)</td>
+        <td>$<%= producto.precioinicial %></td>
+        <td>$<%= producto.saldoinicial * producto.precioinicial %></td>
+        <td><%= cantidadproducida = produccion.sum(:produccion)%> (<%= producto.unidad %>)</td>
+        <td>$<%valor = 0%> <%produccion.each do |prod|%> <%valor += prod.produccion*prod.precioproduccion%><%end%><%=valor%></td> 
+        <td>$<%= producto.preciofinal %></td>
+        <td><%costocesiones= Insumolabore.all.where(:producto=>producto).sum(:cantidad) + Insumolab3ro.all.where(:producto=>producto).sum(:cantidad)%>
+            <%=saldofinal = producto.saldoinicial + cantidadproducida - costocesiones - Venta.all.where(:producto=>producto).sum(:cantidad)%> (<%=producto.unidad%>)</td>
+        <td>$<%=saldofinal*producto.preciofinal%></td>
+        <td>
+          <ul class="button-group">
+            <li><a href="#" data-reveal-id="Modal<%=producto.id%>"><button class="tiny">Modificar</button></a></li>
+            <div id="Modal<%=producto.id%>" class="reveal-modal" data-reveal>
+              <iframe width="420" height="420" src= /productos/<%=producto.id%>/edit  frameborder="0" allowfullscreen></iframe>
+              <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", productos_path %></button></a>
+            </div>
+            <li><button class="tiny"><%= link_to 'Borrar', producto, method: :delete, data: { confirm: 'Are you sure?' } %></button></li>
+          </ul>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+

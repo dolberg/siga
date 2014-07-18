@@ -12,7 +12,7 @@ class LotesController < ApplicationController
       :superficie => params[:lote][:superficie]
     });
    if @lote.save()
-      redirect_to @campo, :notice => "El lote ha sido agregado";
+      redirect_to campos_path, :notice => "El lote ha sido agregado";
    else
       render "new";
    end
@@ -27,7 +27,7 @@ class LotesController < ApplicationController
     @lote.lote = params[:lote][:lote]
     @lote.superficie = params[:lote][:superficie]
     if @lote.save()
-      redirect_to @campo, :notice => "El lote ha sido modificado";
+      redirect_to campos_path, :notice => "El lote ha sido modificado";
    else
       render "edit";
    end
@@ -36,9 +36,9 @@ class LotesController < ApplicationController
 
   def destroy
     if @lote.destroy()
-      redirect_to @campo, :notice => "El lote ha sido eliminado";
+      redirect_to campos_path, :notice => "El lote ha sido eliminado";
    else
-      redirect_to @campo, :notice => "El lote no se ha podido eliminar";
+      redirect_to campos_path, :notice => "El lote no se ha podido eliminar";
    end
   end
 
@@ -52,6 +52,10 @@ class LotesController < ApplicationController
   end
 
   private
+
+  def lote_params
+     params.require(:lote).permit(:campo_id, :lote, :superficie)
+  end
 
   def set_campo
     @campo = Campo.find(params[:campo_id])

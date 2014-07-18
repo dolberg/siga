@@ -1,5 +1,10 @@
 <h1>Coeficientes UTA por Labor</h1>
+<a href="#" data-reveal-id="Modal2"><button class="tiny">Definir Nueva Labor</button></a>
 
+<div id="Modal2" class="reveal-modal" data-reveal>
+      <iframe width="420" height="420" src="/coefuta/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", coefuta_path %></button></a>
+</div>
 <table>
   <thead>
     <tr>
@@ -14,17 +19,17 @@
       <tr>
         <td><%= coefutum.labor %></td>
         <td><%= coefutum.coef %></td>
-        <td><%= link_to 'Ver', coefutum %></td>
-        <td><%= link_to 'Modificar', edit_coefutum_path(coefutum) %></td>
-        <td><%= link_to 'Borrar', coefutum, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+         <td> 
+            <ul class="button-group">
+              <li><a href="#" data-reveal-id="Modal2-<%=coefutum.id%>"><button class="tiny">Modificar</button></a></li>
+              <div id="Modal2-<%=coefutum.id%>" class="reveal-modal" data-reveal>
+                <iframe width="420" height="420" src= /coefuta/<%=coefutum.id%>/edit  frameborder="0" allowfullscreen></iframe>
+                <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", coefuta_path %></button></a>
+              </div>
+              <li><button class="tiny"><%= link_to 'Borrar', coefutum, method: :delete, data: { confirm: 'Are you sure?'}%></button></li>
+            </ul>
+          </td>
       </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'Definir Nueva Labor', new_coefutum_path %>
-<p>
-   <%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
-</p>

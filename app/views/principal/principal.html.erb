@@ -1,14 +1,40 @@
-<p> <%= link_to "Cerrar sesión", :controller => "usuarios", :action => "cerrar_sesion" %> </p>
 
-<h2> Bienvenido/a </h2> 
 
-	<h2><%= @current_user.nombre %></h2>
-	<p>
-      	<%= link_to "Listado de Insumos", :controller => "insumos", :action => "index" %>|
-      	<%= link_to "Listado de Campos", :controller => "campos", :action => "index" %>|
-      	<%= link_to "Facturas y Remitos de Insumos", :controller => "facy_rems", :action => "index" %>|
-      	<%= link_to "Definición de Actividades", :controller => "actividads", :action => "index" %>|
-      	<%= link_to "Coeficientes UTA", :controller => "coefuta", :action => "index" %>|
-      	<%= link_to "Labores", :controller => "labgrale", :action => "labgrales" %>|
-      	<%= link_to "Asignación de Lotes", :controller => "loteactividads", :action => "index" %>|
-    </p>
+<h2> Bienvenido/a <%= @current_user.nombre %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Empresa</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @usuarioempresa.each do |usuarioempresa| %>
+      <tr>
+        <td><%= usuarioempresa.empresa.empresa %></td>
+        <td><%= link_to 'Borrar', usuarioempresa, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><td><%= link_to 'Seleccionar', usuarioempresa %></td></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+    <ul class="button-group">
+      <li class="tiny button"><a href="#" data-reveal-id="Modal1">Dar de Alta una Empresa</a></li>
+      <li class="tiny button"><a href="#" data-reveal-id="Modal2">Agregar una Empresa Existente</a></li>
+    </ul>
+  
+
+<div id="Modal1" class="reveal-modal" data-reveal>
+      <iframe width="420" height="420" src="/empresas/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", principal_principal_path %></button></a>
+</div>
+
+<div id="Modal2" class="reveal-modal" data-reveal>
+      <iframe width="420" height="420" src="/usuarioempresas/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", principal_principal_path %></button></a>
+</div>
+
+

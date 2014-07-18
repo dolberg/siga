@@ -4,7 +4,7 @@ class ActividadsController < ApplicationController
   # GET /actividads
   # GET /actividads.json
   def index
-    @actividads = Actividad.all.where(:usuario_id => @current_user.id)
+    
   end
 
   # GET /actividads/1
@@ -30,7 +30,7 @@ class ActividadsController < ApplicationController
   # POST /actividads.json
   def create
     @actividad = Actividad.new(actividad_params)
-    @actividad.usuario_id = @current_user.id
+    @actividad.empresa_id = @current_empresa.id
 
      #Verificamos si la tarea ha podido ser guardado correctamente.
    
@@ -45,12 +45,7 @@ class ActividadsController < ApplicationController
   # PATCH/PUT /actividads/1.json
   def update
 
-    @actividad.actividad = params[:actividad]["actividad"]
-    @actividad.tipo = params[:actividad]["tipo"]
-    @actividad.sementera = params[:actividad]["sementera"]
-    
-
-    if @actividad.save()
+    if @actividad.update(actividad_params)
       redirect_to actividads_path
     else
       render "edit"
@@ -76,6 +71,6 @@ class ActividadsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def actividad_params
-      params.require(:actividad).permit(:usuario_id, :actividad, :tipo, :sementera)
+      params.require(:actividad).permit(:empresa_id, :actividad, :tipo, :sementera, :producto_id)
     end
 end

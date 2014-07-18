@@ -13,31 +13,27 @@
 
 
   <div class="row">
-    <div class="large-3 columns">
+    <div class="small-6 columns">
       <%= f.label :fecha, "Fecha" %>
       <%= f.date_select :fecha %>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="large-3 columns">
+    <div class="small-6 columns">
       <%= f.label :comprobante, "N° de Comprobante" %>
       <%= f.text_field :comprobante %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-3 columns">
+    <div class="small-12 columns">
       <%= f.label :proveedor, "Proveedor" %>
       <%= f.text_field :proveedor %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-12 columns">
+    <div class="small-12 columns">
       <ul class="button-group">
         <li><button class="tiny" type="submit">Aceptar</button></li>
-        <li class="button tiny"><%= link_to 'Volver', facy_rems_path %></li>
       </ul>
     </div>
   </div>

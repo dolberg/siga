@@ -18,11 +18,12 @@ class InsumolaboresController < ApplicationController
     @insumolabore = Insumolabore.new(insumolabore_params)
     @insumolabore.labor = @labor
 
-    respond_to do |format|
-      if @insumolabore.save
-        format.html { redirect_to @labor, notice: 'Insumolabore was successfully created.' }
-        format.json { render :show, status: :created, location: @labor }
-      else
+    
+    if @insumolabore.save
+      redirect_to labors_path, notice: 'Insumolabore was successfully created.'
+        
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @insumolabore.errors, status: :unprocessable_entity }
       end
@@ -32,11 +33,11 @@ class InsumolaboresController < ApplicationController
   # PATCH/PUT /insumolabores/1
   # PATCH/PUT /insumolabores/1.json
   def update
-    respond_to do |format|
-      if @insumolabore.update(insumolabore_params)
-        format.html { redirect_to @labor, notice: 'Insumolabore was successfully updated.' }
-        format.json { render :show, status: :ok, location: @labor }
-      else
+    
+    if @insumolabore.update(insumolabore_params)
+        redirect_to labors_path, notice: 'Insumolabore was successfully updated.'
+    else
+      respond_to do |format|
         format.html { render :edit }
         format.json { render json: @insumolabore.errors, status: :unprocessable_entity }
       end
@@ -47,10 +48,9 @@ class InsumolaboresController < ApplicationController
   # DELETE /insumolabores/1.json
   def destroy
     @insumolabore.destroy
-    respond_to do |format|
-      format.html { redirect_to @labor, notice: 'Insumolabore was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+     redirect_to labors_path, notice: 'Insumolabore was successfully destroyed.' 
+      
+    
   end
 
   private
@@ -65,6 +65,6 @@ class InsumolaboresController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def insumolabore_params
-      params.require(:insumolabore).permit(:labor_id, :insumo_id, :cantidad, :precio,:comentario)
+      params.require(:insumolabore).permit(:labor_id, :producto_id, :cantidad, :precio,:comentario, :categoria)
     end
 end

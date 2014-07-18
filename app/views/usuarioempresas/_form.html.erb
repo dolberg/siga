@@ -1,0 +1,31 @@
+<%= form_for(@usuarioempresa) do |f| %>
+  <% if @usuarioempresa.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@usuarioempresa.errors.count, "error") %> prohibited this usuarioempresa from being saved:</h2>
+
+      <ul>
+      <% @usuarioempresa.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+   <div class="row">
+    <div class="small-6 columns">
+      <%= f.label :empresa %>
+      <%= f.text_field :empresa %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.label :pass, "Contraseña" %>
+      <%= f.password_field :pass %>
+    </div>
+  </div>
+
+  
+      <button class="tiny" type="submit">Aceptar</button>
+      
+<% end %>

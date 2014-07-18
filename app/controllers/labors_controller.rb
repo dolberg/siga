@@ -4,7 +4,7 @@ class LaborsController < ApplicationController
   # GET /labors
   # GET /labors.json
   def index
-    @labors = Labor.all.where(:usuario_id => @current_user.id)
+    
   end
 
   # GET /labors/1
@@ -16,7 +16,7 @@ class LaborsController < ApplicationController
   # GET /labors/new
   def new
     @labor = Labor.new
-    @campos = Campo.all.where(:usuario_id => @current_user.id)
+    @campos = Campo.all.where(:empresa_id => @current_empresa.id)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -32,13 +32,12 @@ class LaborsController < ApplicationController
   # POST /labors.json
   def create
     @labor = Labor.new(labor_params)
-    @labor.usuario_id = @current_user.id
+    @labor.empresa_id = @current_empresa.id
 
-    respond_to do |format|
-      if @labor.save
-        format.html { redirect_to @labor, notice: 'Labor was successfully created.' }
-        format.json { render :show, status: :created, location: @labor }
-      else
+    if @labor.save
+      redirect_to labors_path, notice: 'Labor was successfully created.'
+    else
+      respond_to do |format|
         format.html { render :new }
         format.json { render json: @labor.errors, status: :unprocessable_entity }
       end
@@ -48,11 +47,11 @@ class LaborsController < ApplicationController
   # PATCH/PUT /labors/1
   # PATCH/PUT /labors/1.json
   def update
-    respond_to do |format|
-      if @labor.update(labor_params)
-        format.html { redirect_to @labor, notice: 'Labor was successfully updated.' }
-        format.json { render :show, status: :ok, location: @labor }
-      else
+    
+    if @labor.update(labor_params)
+      redirect_to labors_path, notice: 'Labor was successfully updated.'
+    else
+      respond_to do |format|
         format.html { render :edit }
         format.json { render json: @labor.errors, status: :unprocessable_entity }
       end
@@ -85,7 +84,7 @@ class LaborsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def labor_params
-      params.require(:labor).permit(:usuario_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :coefutum_id, :comentario)
+      params.require(:labor).permit(:empresa_id, :fecha, :campo_id, :lote_id, :actividad_id, :superficie, :coefutum_id, :comentario, :momento)
     end
 end
 

@@ -6,37 +6,22 @@ class CompraInsumosController < ApplicationController
   end
 
   def create
-    @compra_insumo = CompraInsumo.new({
-      :insumo_id => params[:compra_insumo][:insumo_id],
-      :marca => params[:compra_insumo][:marca],
-      :cant_fac => params[:compra_insumo][:cant_fac],
-      :cant_rem => params[:compra_insumo][:cant_rem],
-      :monto => params[:compra_insumo][:monto],
-      :facy_rem => @facy_rem
-    });
+    @compra_insumo = CompraInsumo.new(compra_insumo_params)
+    @compra_insumo.facy_rem = @facy_rem
    if @compra_insumo.save()
-      redirect_to @facy_rem, :notice => "El registro ha sido agregado";
+      redirect_to facy_rems_path, :notice => "El registro ha sido agregado";
    else
       render "new";
    end
   end
   
   def edit
-    @insumo_id = @compra_insumo.insumo_id
-    @marca = @compra_insumo.marca
-    @cant_fac = @compra_insumo.cant_fac
-    @cant_rem = @compra_insumo.cant_rem
-    @monto = @compra_insumo.monto
+    
   end
 
   def update
-    @compra_insumo.insumo_id = params[:compra_insumo][:insumo_id],
-    @compra_insumo.marca = params[:compra_insumo][:marca],
-    @compra_insumo.cant_fac = params[:compra_insumo][:cant_fac],
-    @compra_insumo.cant_rem = params[:compra_insumo][:cant_rem],
-    @compra_insumo.monto = params[:compra_insumo][:monto],
-    if @compra_insumo.save()
-      redirect_to @facy_rem, :notice => "El registro ha sido modificado";
+    if @compra_insumo.update(compra_insumo_params)
+      redirect_to facy_rems_path, :notice => "El registro ha sido modificado";
    else
       render "edit";
    end
@@ -45,13 +30,17 @@ class CompraInsumosController < ApplicationController
 
   def destroy
     if @compra_insumo.destroy()
-      redirect_to @facy_rem, :notice => "El registro ha sido eliminado";
+      redirect_to facy_rems_path, :notice => "El registro ha sido eliminado";
    else
-      redirect_to @facy_rem, :notice => "El registro no se ha podido eliminar";
+      redirect_to facy_rems_path, :notice => "El registro no se ha podido eliminar";
    end
   end
 
   private
+
+  def compra_insumo_params
+    params.require(:compra_insumo).permit(:facy_rem_id, :producto_id, :marca, :cant_fac, :monto, :cant_rem)
+  end
 
   def set_facy_rem
     @facy_rem = FacyRem.find(params[:facy_rem_id])
@@ -61,5 +50,3 @@ class CompraInsumosController < ApplicationController
     @compra_insumo = CompraInsumo.find(params[:id])
   end
 end
-
-

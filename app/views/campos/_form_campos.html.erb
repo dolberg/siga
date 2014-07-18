@@ -1,42 +1,38 @@
 <%= form_for @campo do |f| %> 
    <div class="row">
-      <div class="large-9 columns">
+      <div class="small-9 columns">
          <%= f.label :nombre%>
          <%= f.text_field :nombre%>
       </div>
    </div>
 
    <div class="row">
-      <div class="large-4 columns">
+      <div class="small-4 columns">
          <%= f.label :superficie%>
          <%= f.text_field :superficie%>
       </div>
    </div>
    
    <div class="row">
-      <div class="large-3 columns">
+      <div class="small-4 columns">
          <%= f.label :provincia%>
          <%= f.text_field :provincia%>
       </div>
 
-      <div class="large-3 columns">
+      <div class="small-4 columns">
          <%= f.label :partido%>
          <%= f.text_field :partido %>
       </div>
 
-      <div class="large-3 columns">
+      <div class="small-4 columns">
          <%= f.label :localidad%>
          <%= f.text_field :localidad %>
       </div>
-
-      <div class="large-3 columns">
-      </div>
    </div>
    <div class="row">
-       <div class="large-12 columns">
+       <div class="small-12 columns">
          <ul class="button-group">
             <li><button class="tiny" type="submit">Aceptar</button></li>
-            <li class="button tiny"><%= link_to 'Volver', campos_path %></li>
          </ul>
       </div>
    </div>

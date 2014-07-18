@@ -8,44 +8,39 @@
    <% end %>
  
   <div class="row">
-    <div class="large-3 columns">
-      <%= f.label :insumo_id, "Producto"%>
-      <%= f.collection_select :insumo_id, Insumo.all.where(:usuario_id => @current_user.id), :id, :producto %>
+    <div class="small-6 columns">
+      <%= f.label :producto_id, "Producto"%>
+      <%= f.collection_select :producto_id, @insumos, :id, :producto %>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="large-3 columns">
+    <div class="small-6 columns">
       <%= f.label :marca, "Marca" %>
       <%= f.text_field :marca %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-3 columns">
+    <div class="small-6 columns">
       <%= f.label :cant_fac, "Cantidad Facturada" %>
       <%= f.text_field :cant_fac %>
+    </div>
+    <div class="small-6 columns">
+      <%= f.label :monto, "Monto" %>
+      <%= f.text_field :monto %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-3 columns">
+    <div class="small-6 columns">
       <%= f.label :cant_rem, "Cantidad Remitida" %>
       <%= f.text_field :cant_rem %>
     </div>
   </div>
 
+    
   <div class="row">
-    <div class="large-3 columns">
-      <%= f.label :monto, "Monto" %>
-      <%= f.text_field :monto %>
-    </div>
-  </div>
-  <div class="row">
-    <div class="large-12 columns">
+    <div class="small-12 columns">
       <ul class="button-group">
         <li><button class="tiny" type="submit">Aceptar</button></li>
-        <li class="button tiny"><%= link_to 'Volver', @facy_rem %></li>
       </ul>
     </div>
   </div>

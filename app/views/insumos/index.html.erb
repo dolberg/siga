@@ -1,6 +1,10 @@
+<h1>Insumos</h1>
+<a href="#" data-reveal-id="Modal2"><button class="tiny">Nuevo Producto</button></a>
 
-<p> <%= link_to "Cerrar sesión", :controller => "usuarios", :action => "cerrar_sesion" %> </p>
-<h1>Listado de insumos</h1>
+<div id="Modal2" class="reveal-modal" data-reveal>
+      <iframe width="420" height="420" src="/insumos/new" frameborder="0" allowfullscreen></iframe>
+  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", insumos_path %></button></a>
+</div>
 
 <table>
   <thead align = "center">
@@ -24,26 +28,27 @@
     <% @insumos.each do |insumo| %>
       <tr>
         <td><%= insumo.producto %></td>
-        <td><%= insumo.salin %></td>
-        <td><%= insumo.precin %></td>
-        <td><%= insumo.salin * insumo.precin %></td>
-        <td><%= facturado = CompraInsumo.where(:insumo_id => insumo.id).sum(:cant_fac) %></td>
-        <td><%= remitido = CompraInsumo.where(:insumo_id => insumo.id).sum(:cant_rem) %></td>
+        <td><%= insumo.saldoinicial %></td>
+        <td><%= insumo.precioinicial %></td>
+        <td><%= insumo.saldoinicial * insumo.precioinicial %></td>
+        <td><%= facturado = CompraInsumo.where(:producto_id => insumo.id).sum(:cant_fac) %></td>
+        <td><%= remitido = CompraInsumo.where(:producto_id => insumo.id).sum(:cant_rem) %></td>
         <td><%= saldoproveedoes = facturado - remitido %></td>
-        <td><%= usado = Insumolabore.where(:insumo_id => insumo.id).sum(:cantidad) + Insumolab3ro.where(:insumo_id => insumo.id).sum(:cantidad)%></td>
-        <td><%= saldofinal = facturado - usado + insumo.salin %></td>
-        <td><%= insumo.precfin %></td>
-        <td><%= saldofinal * insumo.precfin %></td>
-        <td><%= link_to 'Ver', insumo %></td>
-        <td><%= link_to 'Editar', edit_insumo_path(insumo) %></td>
-        <td><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></td>
+        <td><%= usado = Insumolabore.where(:producto_id => insumo.id).sum(:cantidad) + Insumolab3ro.where(:producto_id => insumo.id).sum(:cantidad)%></td>
+        <td><%= saldofinal = facturado - usado + insumo.saldoinicial %></td>
+        <td><%= insumo.preciofinal %></td>
+        <td><%= saldofinal * insumo.preciofinal %></td>
+        <td><a href="#" data-reveal-id="Modal<%=insumo.id%>"><button class="tiny">Modificar</button></a></td>
+            <div id="Modal<%=insumo.id%>" class="reveal-modal" data-reveal>
+               <iframe width="420" height="420" src= /insumos/<%=insumo.id%>/edit  frameborder="0" allowfullscreen></iframe>
+              <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", insumos_path %></button></a>
+            </div>
+        <td><button class="tiny"><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></a></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<br>
-<p >
-<%= link_to 'Nuevo Producto', new_insumo_path %>
-</p>
-<%= link_to 'Inicio', :controller => 'principal', :action => 'principal' %>
+
+
+

@@ -1,0 +1,149 @@
+<dl class="tabs" data-tab>
+  <dd class="active"><a href="#panel1-1">Ventas</a></dd>
+  <dd><a href="#panel1-2">Cesiones</a></dd>
+</dl>
+  <div class="tabs-content">
+    <div class="content active" id="panel1-1">
+
+      <h1>Ventas</h1>
+      <a href="#" data-reveal-id="Modal2"><button class="tiny">Nueva Venta</button></a>
+
+      <div id="Modal2" class="reveal-modal" data-reveal>
+        <iframe width="420" height="420" src="/ventas/new" frameborder="0" allowfullscreen></iframe>
+        <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", ventas_path %></button></a>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%@productos.each do |producto|%>
+          <tr>
+            <td>
+              <dl class="accordion" data-accordion>
+                <dd class="accordion-navigation">
+                  <a href="#panel2-<%=producto.id%>"><%= producto.producto %></a>
+                  <div id="panel2-<%=producto.id%>" class="content">
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Destino</th>
+                          <th>Cantidad</th>
+                          <th>Ingreso Bruto</th>
+                          <th>Costo Flete</th>
+                          <th>Gastos Comerciales</th>
+                          <th>Ingreso Neto</th>
+                          <th>Precio Neto</th>
+                          <th>Comentario</th>
+                          <th colspan="2"></th>
+                        </tr>
+                      </thead>
+
+                      <tbody>
+                        <% @ventas.where(:producto=>producto).each do |venta| %>
+                        <tr>
+                          <td><%=venta.fecha.strftime("%d %B %Y")%></td>
+                          <td><%= venta.comprador %></td>
+                          <td><%= cantidad=venta.cantidad %> <%=producto.unidad%></td>
+                          <td>$<%= iibb=venta.montobruto %></td>
+                          <td>$<%= flete=venta.costoflete %></td>
+                          <td>$<%= gastos=venta.costocomercial %></td>
+                          <td>$<%= ingresoneto=iibb-flete-gastos%></td>
+                          <td><%= precioneto=ingresoneto/cantidad%> $/<%=producto.unidad%></td>
+                          <td><%=venta.comentario%></td>
+                          <td> 
+                            <ul class="button-group">
+                              <li><a href="#" data-reveal-id="Modal2-<%=venta.id%>"><button class="tiny">Modificar</button></a></li>
+                              <div id="Modal2-<%=venta.id%>" class="reveal-modal" data-reveal>
+                                <iframe width="420" height="420" src= /ventas/<%=venta.id%>/edit  frameborder="0" allowfullscreen></iframe>
+                                <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", ventas_path %></button></a>
+                              </div>
+                              <li><button class="tiny"><%= link_to 'Borrar', venta, method: :delete, data: { confirm: 'Are you sure?'}%></button></li>
+                            </ul>
+                          </td>
+                        </tr>
+                        <% end %>
+                      </tbody>
+                    </table>
+                    <br>
+                  </div>
+                </dd>
+              </dl>
+            </td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+      <br>
+    </div>
+    <div class="content" id="panel1-2">
+      <h1>Cesiones</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Producto</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%@productos.each do |productos|%>
+          <tr>
+            <td>
+              <dl class="accordion" data-accordion>
+                <dd class="accordion-navigation">
+                  <a href="#panel3-<%=productos.id%>"><%= productos.producto %></a>
+                  <div id="panel3-<%=productos.id%>" class="content">                      
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Fecha</th>
+                          <th>Destino</th>
+                          <th>Cantidad</th>
+                          <th>Precio</th>
+                          <th>Costo</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <%cesionespropias=Insumolabore.where(:producto=>productos)%>
+                        <%cesionesterceros=Insumolab3ro.where(:producto=>productos)%>
+                        <%cesionespropias.each do |propias|%>
+                        <tr>
+                          <td><%=propias.labor.fecha.strftime("%d %B %Y")%></td>
+                          <td><%=propias.labor.actividad.actividad%></td>
+                          <td><%=cantidad=propias.cantidad%></td>
+                          <td><%=precio=propias.precio%></td>
+                          <td><%=precio*cantidad%></td>
+                        </tr>
+                        <%end%>
+                        <%cesionesterceros.each do |terceros|%>
+                        <tr>                            
+                          <td><%=terceros.labor.fecha.strftime("%d %B %Y")%></td>
+                          <td><%=terceros.labor.actividad.actividad%></td>
+                          <td><%=cantidad=terceros.cantidad%></td>
+                          <td><%=precio=terceros.precio%></td>
+                          <td><%=precio*cantidad%></td>
+                        </tr>
+                        <%end%>
+                      </tbody>
+                    </table>
+                    <br>
+                  </div>
+                </dd>
+              </dl>
+            </td>
+          </tr>
+          <%end%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+    
+
+
+
+
+

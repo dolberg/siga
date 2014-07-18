@@ -1,0 +1,34 @@
+<h1>Resultado Por Producción</h1>
+
+<br>
+<br>
+
+<h5><strong>Superficie:</strong> <%=superficie=@loteactividades.sum(:superficie)%> ha</h5>
+<br>
+<br>
+<table>
+	<thead>
+		<tr>
+			<th></th>
+			<th>Total</th>
+			<th>/ha</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><strong>Ingresos:</strong></td>
+			<td><%=@ingresos%></td>
+			<td><%=@ingresos/superficie%></td>
+		</tr>
+		<tr>
+			<td><strong>Costos:</strong></td>
+			<td><%=@costos%></td>
+			<td><%=@costos/superficie%></td>
+		</tr>
+		<tr>
+			<td><strong>MB</strong></td>
+			<td><%=@ingresos-@costos%></td>
+			<td><%=(@ingresos-@costos)/superficie%></td>
+		</tr>
+
+	</tbody>

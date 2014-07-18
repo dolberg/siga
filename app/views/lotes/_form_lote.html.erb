@@ -7,23 +7,23 @@
       </ul>
    <% end %>
 <div class="row">
-   <div class="large-1 columns">
+   <div class="small-2 columns">
       <%= lote.label :lote, "Lote" %>
       <%= lote.text_field :lote %>
    </div>
-   <div class="large-2 columns">
+   <div class="small-4 columns">
       <%= lote.label :superficie, "Superficie" %>
       <%= lote.text_field :superficie %>
    </div>
-   <div class="large-9 columns">
+   <div class="small-6 columns">
    </div>
 </div>
    
    <div class="row">
-    <div class="large-12 columns">
+    <div class="small-12 columns">
       <ul class="button-group">
         <li><button class="tiny" type="submit">Aceptar</button></li>
-        <li class="button tiny"><%= link_to 'Volver', @campo %></li>
+        <li class="button tiny"><%= link_to 'Volver', campos_path %></li>
       </ul>
     </div>
   </div>

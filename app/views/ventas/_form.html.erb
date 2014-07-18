@@ -1,0 +1,60 @@
+<%= form_for(@venta) do |f| %>
+  <% if @venta.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@venta.errors.count, "error") %> prohibited this venta from being saved:</h2>
+
+      <ul>
+      <% @venta.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+    <div class="small-3 columns">
+      <%= f.label :fecha %>
+      <%= f.date_select :fecha %>
+    </div>
+    <div class="small-6 columns">
+      <%= f.label :producto_id, "Producto"%><br>
+      <%= f.collection_select :producto_id, @productos, :id, :producto %>
+    </div>
+    <div class="small-3 columns">
+      <%= f.label :cantidad %><br>
+      <%= f.text_field :cantidad %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.label :comprador, "Destino" %><br>
+      <%= f.text_field :comprador %>
+    </div>
+    <div class="small-6 columns">
+      <%= f.label :montobruto, "Monto Bruto" %><br>
+      <%= f.text_field :montobruto %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-6 columns">
+      <%= f.label :costoflete, "Flete" %><br>
+      <%= f.text_field :costoflete %>
+    </div>
+    <div class="small-6 columns">
+      <%= f.label :costocomercial, "Gastos Comerciales" %><br>
+      <%= f.text_field :costocomercial %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <%= f.label :comentario %>
+      <%= f.text_area :comentario %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="small-12 columns">
+      <ul class="button-group">
+        <li><button class="tiny" type="submit">Aceptar</button></li>
+      </ul>
+    </div>
+  </div>
+  <% end %>

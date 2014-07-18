@@ -15,54 +15,53 @@
 
 
   <div class="row">
-    <div class="large-2 columns">
+    <div class="small-3 columns">
       <%= f.label :fecha %>
       <%= f.date_select :fecha %>
     </div>
-  </div>
-
-  <div class="row">
-    <div class="large-3 columns">
+    <div class="small-6 columns">
       <%= f.label :campo_id %><br>
-      <%= f.collection_select(:campo_id, Campo.all.where(:usuario_id => @current_user.id),:id, :nombre, {} ,{:id=>'Campo'}) %>
+      <%= f.collection_select(:campo_id, Campo.all.where(:empresa_id => @current_empresa.id),:id, :nombre, {} ,{:id=>'Campo'}) %>
     </div>
-    <div class="large-2 columns">
+    <div class="small-3 columns">
       <%= f.label :lote_id %><br>
-      <%= f.collection_select(:lote_id, Lote.where(:campo_id => Campo.where(:usuario_id => @current_user.id).first), :id, :lote,{},{:id=>'Lote'}) %>
-    </div>
-    <div class="large-7 columns">
+      <%= f.collection_select(:lote_id, Lote.where(:campo_id => Campo.where(:empresa_id => @current_empresa.id).first), :id, :lote,{},{:id=>'Lote'}) %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-2 columns">
-      <%= f.label :actividad_id %><br>
-      <%= f.collection_select(:actividad_id, Loteactividad.where(:lote_id => Lote.where(:campo_id => Campo.where(:usuario_id => @current_user.id))), :id, :actividad_id,{},{:id=>'Actividad'}) %>
+    <div class="small-4 columns">
+      <%= f.label :actividad_id, "Actividad" %><br>
+      <%= f.collection_select :actividad_id, Actividad.all.where(:empresa_id => @current_empresa.id), :id, :actividad %>
     </div>
-    <div class="large-2 columns">
+    <div class="small-3 columns">
       <%= f.label :superficie %><br>
       <%= f.text_field :superficie %>
     </div>
-    <div class="large-2 columns">
+    <div class="small-5 columns">
       <%= f.label :coefutum_id, "Labor" %><br>
-      <%= f.collection_select :coefutum_id, Coefutum.all.where(:usuario_id => @current_user.id), :id, :labor %>
-    </div>
-    <div class="large-4 columns">
+      <%= f.collection_select :coefutum_id, Coefutum.all.where(:empresa_id => @current_empresa.id), :id, :labor %>
     </div>
   </div>
 
   <div class="row">
-    <div class="large-8 columns">
+    <div class="small-6 columns">
+      <%= f.label :momento %>
+      <%= f.select :momento, options_for_select([["Barbecho"], ["Siembra"], ["Preemergente"], ["Cultivo"], ["Cosecha"]]) %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="small-12 columns">
       <%= f.label :comentario %>
       <%= f.text_area :comentario %>
     </div>
   </div>
 
-  <<div class="row">
-    <div class="large-12 columns">
+  <div class="row">
+    <div class="small-12 columns">
       <ul class="button-group">
         <li><button class="tiny" type="submit">Aceptar</button></li>
-        <li class="button tiny"><%= link_to 'Volver', labors_path  %></li>
       </ul>
     </div>
   </div>
