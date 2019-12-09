@@ -1,9 +1,9 @@
 <h1>Insumos</h1>
-<a href="#" data-reveal-id="Modal2"><button class="tiny">Nuevo Producto</button></a>
+<button class="button small" data-open="Modal">Nuevo Producto</button>
 
-<div id="Modal2" class="reveal-modal" data-reveal>
-      <iframe width="420" height="420" src="/insumos/new" frameborder="0" allowfullscreen></iframe>
-  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", insumos_path %></button></a>
+<div id="Modal" class="reveal-modal" data-reveal>
+  <iframe width="420" height="420" src="/insumos/new" frameborder="0" allowfullscreen></iframe>
+  <button class="close-button" data-close aria-label="Salir" type="button"><%=link_to "Salir", insumos_path %></button><
 </div>
 
 <table>
@@ -38,12 +38,12 @@
         <td><%= saldofinal = facturado - usado + insumo.saldoinicial %></td>
         <td><%= insumo.preciofinal %></td>
         <td><%= saldofinal * insumo.preciofinal %></td>
-        <td><a href="#" data-reveal-id="Modal<%=insumo.id%>"><button class="tiny">Modificar</button></a></td>
-            <div id="Modal<%=insumo.id%>" class="reveal-modal" data-reveal>
-               <iframe width="420" height="420" src= /insumos/<%=insumo.id%>/edit  frameborder="0" allowfullscreen></iframe>
-              <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", insumos_path %></button></a>
-            </div>
-        <td><button class="tiny"><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></a></td>
+        <td><button class="button small" data-open="Modal<%=insumo.id%>">Modificar</button></td>
+        <div id="Modal<%=insumo.id%>" class="reveal-modal" data-reveal>
+          <iframe width="420" height="420" src= /insumos/<%=insumo.id%>/edit  frameborder="0" allowfullscreen></iframe>
+          <button class="close-button" data-close aria-label="Salir" type="button"><%=link_to "Salir", insumos_path %></button>
+        </div>
+        <td><button class="button tiny"><%= link_to 'Borrar', insumo, method: :delete, data: { confirm: 'Está usted seguro?' } %></button></td>
       </tr>
     <% end %>
   </tbody>

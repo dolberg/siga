@@ -1,6 +1,6 @@
 class UsuarioempresasController < ApplicationController
   before_action :set_usuarioempresa, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :current_empresa
+  skip_before_action :current_empresa
   
 
   # GET /usuarioempresas

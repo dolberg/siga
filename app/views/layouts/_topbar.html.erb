@@ -1,76 +1,75 @@
-<nav class="top-bar" data-topbar>
+<div class="title-bar" data-responsive-toggle="example-menu" data-hide-for="medium">
+  <button class="menu-icon" type="button" data-toggle="example-menu"></button>
   <%if @current_empresa !=nil %>
-  <ul class="title-area">
-    <li class="name">
-      <h1><a href="/inicio/inicio"><%= @current_empresa.empresa%></a></h1>
-    </li>
-     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    
-  </ul>
-  <%end%>
+    <div class="title-bar-title"><a href="/inicio/inicio"><%= @current_empresa.empresa%></a></div>
+  <%else%>
+    <div class="title-bar-title">SIGA</div>
+  <% end %>
+</div>
 
-  <section class="top-bar-section">
+<div class="top-bar" id="example-menu">
     <!-- Right Nav Section -->
-    <% if @current_empresa != nil %>
-    <ul class="right">
-      <li class="has-dropdown">
-        <a href='#'>Almacenes</a>
-        <ul class="dropdown">
-          <li class="has-dropdown">
-            <a href="#">Insumos</a>
-            <ul class="dropdown">
+  <% if @current_empresa != nil %>
+    <div class="top-bar-left">
+      <ul class="dropdown menu" data-dropdown-menu>
+        <li class="menu-text">SIGA</li>
+        <li class="has-submenu">
+          <a href='#'>Almacenes</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <li class="has-submenu">
+              <a href="#">Insumos</a>
+              <ul class="submenu menu vertical" data-submenu>
                 <li> <%=link_to "Listado de Insumos", :controller => "insumos", :action => "index" %></li>
                 <li><%= link_to "Facturas y Remitos de Insumos", :controller => "facy_rems", :action => "index" %></li>
-            </ul>
-          </li>
-          <li class="has-dropdown">
-            <a href="#">Productos</a>
-            <ul class="dropdown">
-              <li><%= link_to "Inventarios de Productos", :controller => "productos", :action => "index" %></li>
-              <li><%= link_to "Ventas y Cesiones", :controller=> "ventas", :action => "index" %></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li><%= link_to "Listado de Campos", :controller => "campos", :action => "index" %></li>
-      <li><%= link_to "Definición de Actividades", :controller => "actividads", :action => "index" %></li>
-      <li class="has-dropdown">
-        <a href="#">Labores</a>
-        <ul class="dropdown">
-          <li><%= link_to "Labores Propias", :controller => "labors", :action => "index" %></li>
-          <li><%= link_to "Labores de Terceros", :controller => "lab3ros", :action => "index" %></li>
-        </ul>
-      </li>
-      <li><%= link_to "Coeficientes UTA", :controller => "coefuta", :action => "index" %></li>
-      <li><%= link_to "Asignación de Lotes", :controller => "loteactividads", :action => "index" %></li>
-      <li class="has-dropdown">
-        <a href='#'>Resultados</a>
-        <ul class="dropdown">
-          <li class="has-dropdown">
-            <a href="#">Margenes Brutos</a>
-            <ul class="dropdown">
-              <li><%=link_to "Agricultura", :controller => "resultado", :action => "agricultura" %></li>
-              <li><%=link_to "Forrajes Conservados", :controller => "resultado", :action => "forrajesconservados" %></li>
-              <li><%=link_to "Resultado de Verdeos y Praderas", :controller => "resultado", :action => "forrajes" %></li>
-              <li><%=link_to "Resultado de Sementeras al Cierre", :controller => "resultado", :action => "sementerafinal" %></li>
-            </ul>
-          </li>
-          <li class="has-dropdown">
-            <a href="#">Otros Resultados</a>
-            <ul class="dropdown">
-              <li><%=link_to "Resultado por Produccion", :controller => "resultado", :action => "produccion" %></li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-
-    </ul>
-    <%end%>
+              </ul>
+            </li>
+            <li class="has-submenu">
+              <a href="#">Productos</a>
+              <ul class="submenu menu vertical" data-submenu>
+                <li><%= link_to "Inventarios de Productos", :controller => "productos", :action => "index" %></li>
+                <li><%= link_to "Ventas y Cesiones", :controller=> "ventas", :action => "index" %></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li><%= link_to "Listado de Campos", :controller => "campos", :action => "index" %></li>
+        <li><%= link_to "Definición de Actividades", :controller => "actividads", :action => "index" %></li>
+        <li class="has-submenu">
+          <a href="#">Labores</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <li><%= link_to "Labores Propias", :controller => "labors", :action => "index" %></li>
+            <li><%= link_to "Labores de Terceros", :controller => "lab3ros", :action => "index" %></li>
+          </ul>
+        </li>
+        <li><%= link_to "Coeficientes UTA", :controller => "coefuta", :action => "index" %></li>
+        <li><%= link_to "Asignación de Lotes", :controller => "loteactividads", :action => "index" %></li>
+        <li class="has-submenu">
+          <a href='#'>Resultados</a>
+          <ul class="submenu menu vertical" data-submenu>
+            <li class="has-submenu">
+              <a href="#">Margenes Brutos</a>
+              <ul class="submenu menu vertical" data-submenu>
+                <li><%=link_to "Agricultura", :controller => "resultado", :action => "agricultura" %></li>
+                <li><%=link_to "Forrajes Conservados", :controller => "resultado", :action => "forrajesconservados" %></li>
+                <li><%=link_to "Resultado de Verdeos y Praderas", :controller => "resultado", :action => "forrajes" %></li>
+                <li><%=link_to "Resultado de Sementeras al Cierre", :controller => "resultado", :action => "sementerafinal" %></li>
+              </ul>
+            </li>
+            <li class="has-submenu">
+              <a href="#">Otros Resultados</a>
+              <ul class="submenu menu vertical" data-submenu>
+                <li><%=link_to "Resultado por Produccion", :controller => "resultado", :action => "produccion" %></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  <%end%>
 
     <!-- Left Nav Section -->
-    <ul class="left">
-      <li> <%= link_to "Inicio", principal_principal_path %> </li>
-      <li> <%= link_to "Cerrar Sesión", usuarios_cerrar_sesion_path %></li>
-    </ul>
-  </section>
-</nav>
+  <div class="top-bar-rigt">
+    <li> <%= link_to "Inicio", principal_principal_path %> </li>
+    <li> <%= link_to "Cerrar Sesión", usuarios_cerrar_sesion_path %></li>
+  </div>
+</div>

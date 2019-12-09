@@ -1,4 +1,4 @@
-class CreateInsumolabores < ActiveRecord::Migration
+class CreateInsumolabores < ActiveRecord::Migration[5.2]
   def change
     create_table :insumolabores do |t|
       t.references :labor, index: true

@@ -1,4 +1,4 @@
-class CreateLoteactividads < ActiveRecord::Migration
+class CreateLoteactividads < ActiveRecord::Migration[5.2]
   def change
     create_table :loteactividads do |t|
       t.references :empresa, index: true

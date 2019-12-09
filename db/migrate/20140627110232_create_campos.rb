@@ -1,4 +1,4 @@
-class CreateCampos < ActiveRecord::Migration
+class CreateCampos < ActiveRecord::Migration[5.2]
   def change
     create_table :campos do |t|
       t.references :empresa, index: true

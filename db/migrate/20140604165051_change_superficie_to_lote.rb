@@ -1,4 +1,4 @@
-class ChangeSuperficieToLote < ActiveRecord::Migration
+class ChangeSuperficieToLote < ActiveRecord::Migration[5.2]
   def change
   end
 end

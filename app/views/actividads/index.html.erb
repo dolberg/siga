@@ -1,9 +1,13 @@
 <h1>Actividades</h1>
-<a href="#" data-reveal-id="Modal2"><button class="tiny">Nueva Actividad</button></a>
+<button class="button small" data-open="Modal2">Nueva Actividad</button>
 
-<div id="Modal2" class="reveal-modal" data-reveal>
-      <iframe width="420" height="420" src="/actividads/new" frameborder="0" allowfullscreen></iframe>
-  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", actividads_path %></button></a>
+<div class="reveal" id="Modal2" data-reveal>
+ 
+
+  <iframe width="420" height="420" src="/actividads/new" frameborder="0" allowfullscreen></iframe>
+  <button class="close-button" data-close aria-label="Salir" type="button"><%=link_to "Salir", actividads_path %>
+    <span aria-hidden="true">&times;</span>
+  </button>
 </div>
 <table>
   <thead>
@@ -19,15 +23,16 @@
       <tr>
         <td><%= actividad.actividad %></td>
         <td><%= actividad.tipo %> - <%= actividad.sementera %></td>
-        <td> <ul class="button-group">
-              <li><a href="#" data-reveal-id="Modal2-<%=actividad.id%>"><button class="tiny">Modificar</button></a></li>
-              <div id="Modal2-<%=actividad.id%>" class="reveal-modal" data-reveal>
-                <iframe width="420" height="420" src= /actividads/<%=actividad.id%>/edit  frameborder="0" allowfullscreen></iframe>
-                <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", actividads_path %></button></a>
-              </div>
-              <li><button class="tiny"><%= link_to 'Borrar', actividad, method: :delete, data: { confirm: 'Are you sure?'}%></button></li>
-            </ul>
-          </td>
+        <td> 
+          <div class="tiny button-group">
+            <button class="button" data-open="Modal2-<%=actividad.id%>">Modificar</button>
+            <div class="reveal" id="Modal2-<%=actividad.id%>" data-reveal>
+              <iframe width="420" height="420" src= /actividads/<%=actividad.id%>/edit  frameborder="0" allowfullscreen></iframe>
+              <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", actividads_path %></button></a>
+            </div>
+            <button class="button"><%= link_to 'Borrar', actividad, method: :delete, data: { confirm: 'Are you sure?'}%></button>
+          </div>
+        </td>
       </tr>
     <% end %>
   </tbody>

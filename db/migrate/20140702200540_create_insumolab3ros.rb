@@ -1,4 +1,4 @@
-class CreateInsumolab3ros < ActiveRecord::Migration
+class CreateInsumolab3ros < ActiveRecord::Migration[5.2]
   def change
     create_table :insumolab3ros do |t|
       t.references :lab3ro, index: true

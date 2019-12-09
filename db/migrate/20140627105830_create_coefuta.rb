@@ -1,4 +1,4 @@
-class CreateCoefuta < ActiveRecord::Migration
+class CreateCoefuta < ActiveRecord::Migration[5.2]
   def change
     create_table :coefuta do |t|
       t.references :empresa, index: true

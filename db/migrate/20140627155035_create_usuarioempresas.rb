@@ -1,4 +1,4 @@
-class CreateUsuarioempresas < ActiveRecord::Migration
+class CreateUsuarioempresas < ActiveRecord::Migration[5.2]
   def change
     create_table :usuarioempresas do |t|
       t.references :usuario, index: true

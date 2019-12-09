@@ -1,4 +1,4 @@
-class CreateCompraInsumos < ActiveRecord::Migration
+class CreateCompraInsumos < ActiveRecord::Migration[5.2]
   def change
     create_table :compra_insumos do |t|
       t.references :facy_rem, index: true

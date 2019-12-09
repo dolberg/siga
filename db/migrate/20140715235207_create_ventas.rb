@@ -1,4 +1,4 @@
-class CreateVentas < ActiveRecord::Migration
+class CreateVentas < ActiveRecord::Migration[5.2]
   def change
     create_table :ventas do |t|
       t.references :producto, index: true

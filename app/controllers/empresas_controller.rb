@@ -1,6 +1,6 @@
 class EmpresasController < ApplicationController
   before_action :set_empresa, only: [:show, :edit, :update, :destroy]
-  skip_before_filter :current_empresa
+  skip_before_action :current_empresa
 
   # GET /empresas
   # GET /empresas.json

@@ -1,4 +1,4 @@
-class CreateLotes < ActiveRecord::Migration
+class CreateLotes < ActiveRecord::Migration[5.2]
   def change
     create_table :lotes do |t|
       t.references :campo, index: true

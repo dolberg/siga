@@ -1,5 +1,5 @@
 class PrincipalController < ApplicationController
-	 skip_before_filter :current_empresa
+	 skip_before_action :current_empresa
 
 	def principal
 		

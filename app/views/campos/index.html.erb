@@ -1,9 +1,9 @@
 <h1>Establecimientos </h1>
-<a href="#" data-reveal-id="Modal2"><button class="tiny">Nuevo Establecimiento</button></a>
+<button class="button small" data-open="Modal">Nuevo Establecimiento</button>
 
-<div id="Modal2" class="reveal-modal" data-reveal>
-      <iframe width="420" height="420" src="/campos/new" frameborder="0" allowfullscreen></iframe>
-  <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", campos_path %></button></a>
+<div id="Modal" class="reveal-modal" data-reveal>
+  <iframe width="420" height="420" src="/campos/new" frameborder="0" allowfullscreen></iframe>
+  <button class="close-button" data-close aria-label="Salir" type="button"><%=link_to "Salir", campos_path %></button>
 </div>
 <table>
   <thead>
@@ -17,79 +17,84 @@
     <% @campos.each do |campo| %>
       <tr>
         <td>
-          <dl class="accordion" data-accordion>
-            <dd class="accordion-navigation">
+          <ul class="accordion" data-accordion-menu data-submenu-toggle="true" data-allow-all-closed="true">
+            <li class='accordion-item' data-accordion-item>
               <a href="#panel<%=campo.id%>"><%= campo.nombre %></a>
-                <div id="panel<%=campo.id%>" class="content">
-                  <dl class="tabs" data-tab>
-                    <dd class="active"><a href="#panel<%=campo.id%>2-1">Detalles</a></dd>
-                    <dd><a href="#panel<%=campo.id%>2-2">Lotes</a></dd>
-                    <dd><a href="#panel<%=campo.id%>2-3">Tab 3</a></dd>
-                    <dd><a href="#panel<%=campo.id%>2-4">Tab 4</a></dd>
-                  </dl>
-                  <div class="tabs-content">
-                    <div class="content active" id="panel<%=campo.id%>2-1">
-                      <div>
-                        Superficie: <%= campo.superficie %> ha
-                      </div>
-                      <div>
-                        Provincia: <%= campo.provincia %>
-                      </div>
-                      <div>
-                        Partido: <%= campo.partido %>
-                      </div>
-                      <div>
-                        Localidad: <%= campo.localidad %>
-                      </div>
-                    </div>
-                    <div class="content" id="panel<%=campo.id%>2-2">
-                      <a href="#" data-reveal-id="Modal<%=campo.id%>"><button class="tiny">Agregar Lote</button></a>
-
-                      <div id="Modal<%=campo.id%>" class="reveal-modal" data-reveal>
-                        <iframe width="420" height="420" src="/campos/<%=campo.id%>/lotes/new" frameborder="0" allowfullscreen></iframe>
-                        <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", campos_path %></button></a>
-                      </div>
-                      <table>
-                        <tbody>
-                          <% @lotes = Lote.where(:campo_id => campo.id).order("lotes.lote ASC");%>
-                          <% @lotes.each do |lote| %>
-                          <tr>
-                            <td><%= lote.lote %></td>
-                            <td><%= lote.superficie %> ha </td>
-                            <td>
-                              <ul class="button-group">
-                                <li><a href="#" data-reveal-id="Modal1-<%=lote.id%>"><button class="tiny">Modificar</button></a></li>
-                                  <div id="Modal1-<%=lote.id%>" class="reveal-modal" data-reveal>
-                                    <iframe width="420" height="420" src= "campos/<%=campo.id%>/lotes/<%=lote.id%>/edit"  frameborder="0" allowfullscreen></iframe>
-                                    <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", campos_path %></button></a>
-                                  </div>
-                                <li><button class="tiny"><%= link_to "Eliminar", campo_lote_path(campo, lote), :confirm => "Seguro desea eliminar este lote?", :method => :delete %></button></li>
-                              </ul>
-                            </td>
-                          </tr> 
-                          <% end %>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div class="content" id="panel<%=campo.id%>2-3">
-                      <p>Third panel content goes here...</p>
-                    </div>
-                    <div class="content" id="panel<%=campo.id%>2-4">
-                      <p>Fourth panel content goes here...</p>
-                    </div>
+              <ul class="tabs" data-tabs id="example-tabs">
+                <li class="tabs-title"><a data-tabs-target="panel<%=campo.id%>2-1" href="#panel<%=campo.id%>2-1">Detalles</a></li>
+                <li class="tabs-title"><a data-tabs-target="panel<%=campo.id%>2-2" href="#panel<%=campo.id%>2-2">Lotes</a></li>
+                <li class="tabs-title"><a data-tabs-target="panel<%=campo.id%>2-3" href="#panel<%=campo.id%>2-3">Tab 3</a></li>
+                <li class="tabs-title"><a data-tabs-target="panel<%=campo.id%>2-4" href="#panel<%=campo.id%>2-4">Tab 4</a></li>
+              </ul>
+              <div class="tabs-content" data-tabs-content="example-tabs">
+                <div class="tabs-panel" id="panel<%=campo.id%>2-1">
+                  <div>
+                    Superficie: <%= campo.superficie %> ha
+                  </div>
+                  <div>
+                    Provincia: <%= campo.provincia %>
+                  </div>
+                  <div>
+                    Partido: <%= campo.partido %>
+                  </div>
+                  <div>
+                    Localidad: <%= campo.localidad %>
                   </div>
                 </div>
-              </dd>
-            </dl>
+                <div class="tabs-panel" id="panel<%=campo.id%>2-2">
+                  <button class="button small" data-open="Modal<%=campo.id%>">Agregar Lote</button>
+                  <div id="Modal<%=campo.id%>" class="reveal-modal" data-reveal>
+                    <iframe width="420" height="420" src="/campos/<%=campo.id%>/lotes/new" frameborder="0" allowfullscreen></iframe>
+                    <button class="close-button" data-close aria-label="Salir" type="button tiny"><%=link_to "Salir", campos_path %></button>
+                  </div>
+                  <table>
+                    <tbody>
+                      <% @lotes = Lote.where(:campo_id => campo.id).order("lotes.lote ASC");%>
+                      <% @lotes.each do |lote| %>
+                        <tr>
+                          <td><%= lote.lote %></td>
+                          <td><%= lote.superficie %> ha </td>
+                          <td>
+                            <ul class="button-group">
+                              <li>
+                                <button class="button small" data-open="Modal1-<%=lote.id%>">Modificar</button>
+                              </li>
+                              <div id="Modal1-<%=lote.id%>" class="reveal-modal" data-reveal>
+                                <iframe width="420" height="420" src= "campos/<%=campo.id%>/lotes/<%=lote.id%>/edit"  frameborder="0" allowfullscreen></iframe>
+                                <button class="close-button" data-close aria-label="Salir" type="button tiny"><%=link_to "Salir", campos_path %></button>
+                              </div>
+                              <li>
+                                <button class=" "><%= link_to "Eliminar", campo_lote_path(campo, lote), :confirm => "Seguro desea eliminar este lote?", :method => :delete %></button>
+                              </li>
+                            </ul>
+                          </td>
+                        </tr> 
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="tabs-panel" id="panel<%=campo.id%>2-3">
+                  <p>Third panel content goes here...</p>
+                </div>
+                <div class="tabs-panel" id="panel<%=campo.id%>2-4">
+                  <p>Fourth panel content goes here...</p>
+                </div>
+              </div>
+            </li>
+          </ul>
         </td>
         <td>
           <ul class="button-group">
-            <li><a href="#" data-reveal-id="Modal2-<%=campo.id%>"><button class="tiny">Modificar</button></a></li>
-              <div id="Modal2-<%=campo.id%>" class="reveal-modal" data-reveal>
-                <iframe width="420" height="420" src= /campos/<%=campo.id%>/edit  frameborder="0" allowfullscreen></iframe>
-                <a class="close-reveal-modal"><button class="tiny"><%=link_to "Salir", campos_path %></button></a>
-              </div>
-            <li><button class="tiny"><%= link_to "Eliminar", campo, :confirm => "Seguro desea eliminar esta tarea?", :method => :delete %></button></li>
+            <li>
+              <button class="button small" data-open="Modal2-<%=campo.id%>">Modificar</button>
+            </li>
+            <div id="Modal2-<%=campo.id%>" class="reveal-modal" data-reveal>
+              <iframe width="420" height="420" src= /campos/<%=campo.id%>/edit  frameborder="0" allowfullscreen></iframe>
+              <button class="close-button" data-close aria-label="Salir" type="button tiny"><%=link_to "Salir", campos_path %></button>
+            </div>
+            <li>
+              <button class="button tiny"><%= link_to "Eliminar", campo, :confirm => "Seguro desea eliminar esta tarea?", :method => :delete %></button>
+            </li>
           </ul>
         </td>
       </tr>

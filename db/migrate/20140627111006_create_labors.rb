@@ -1,4 +1,4 @@
-class CreateLabors < ActiveRecord::Migration
+class CreateLabors < ActiveRecord::Migration[5.2]
   def change
     create_table :labors do |t|
       t.references :empresa, index: true

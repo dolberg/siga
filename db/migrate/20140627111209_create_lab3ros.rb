@@ -1,4 +1,4 @@
-class CreateLab3ros < ActiveRecord::Migration
+class CreateLab3ros < ActiveRecord::Migration[5.2]
   def change
     create_table :lab3ros do |t|
       t.references :empresa, index: true
